@@ -48,7 +48,16 @@ function unlock1(){
 	x.addEventListener("click", function(){next2()});
 }
 
-function next2(){
+function unlock2(){
+	var x = document.getElementById("clicklisten");
+	x.classList.remove("lockedlink");
+	x.classList.add("link");
+	x.addEventListener("click", function(){wipe()});
+}
+
+var boolarr = [false, false, false, false, false];
+
+async function next2(){
 	var a = document.getElementById("comms");
 	var c = document.getElementById("continue");
 	var x = document.getElementById("hint");
@@ -60,11 +69,37 @@ function next2(){
 	await sleep(4000);
 	c.innerHTML = "<div class='lockedlink' id='clicklisten'>Continue</div>";
 	u.innerHTML = "<div class='link' id='unlock2'>Unlock</div><br><br><div class='link' id='unlock3'>Unlock</div><br><br><div class='link' id='unlock1'>Unlock</div><br><br><div class='link' id='unlock5'>Unlock</div><br><br><div class='link' id='unlock4'>Unlock</div>"
-	document.getElementById("unlock1").addEventListener("click", function(){})
+	document.getElementById("unlock1").addEventListener("click", function(){unlock(1)})
+	document.getElementById("unlock2").addEventListener("click", function(){unlock(2)})
+	document.getElementById("unlock3").addEventListener("click", function(){unlock(3)})
+	document.getElementById("unlock4").addEventListener("click", function(){unlock(4)})
+	document.getElementById("unlock5").addEventListener("click", function(){if(unlock(5)){unlock2()}})
 	await sleep(3000);
 	a.innerHTML = "<div style='color: #FFFFFF' class='typewriter center'>TROUBLING, RIGHT?</div>"
 	await sleep(4000);
 	x.innerHTML = "<div style='color: #FFFFFF' class='typewriter center'>IT'S NOT ORDERED.</div>"
+}
+
+function unlock(n){
+	n -= 1;
+	for(var i = n; i >= 0; i--){
+		if(!boolarr[i]){
+			boolarr = [false, false, false, false, false];
+			return false;
+		}
+	}
+	return true;
+}
+
+function wipe(){
+	var a = document.getElementById("comms");
+	var c = document.getElementById("continue");
+	var x = document.getElementById("hint");
+	var u = document.getElementById("unlocker");
+	a.innerHTML = "";
+	c.innerHTML = "";
+	x.innerHTML = "";
+	u.innerHTML = "";
 }
 
 function sleep(ms) {
