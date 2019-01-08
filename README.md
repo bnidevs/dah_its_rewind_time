@@ -5,7 +5,5 @@ Final Project in Software Development
 <br>
 [Design](https://github.com/bnidevs/dah_its_rewind_time/blob/master/doc/design.pdf)
 
-<br>
-<br>
 
 [Game Instructions](https://www.cardplayer.com/rules-of-poker/how-to-play-poker/games/texas-holdem)
