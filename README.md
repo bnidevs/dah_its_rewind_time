@@ -2,4 +2,5 @@
 Final Project in Software Development
 
 [Devlog](https://github.com/bnidevs/dah_its_rewind_time/blob/master/doc/devlog.txt)
+<br>
 [Design](https://github.com/bnidevs/dah_its_rewind_time/blob/master/doc/design.pdf)
