@@ -1,0 +1,77 @@
+<!-- armRESTs - Robin Han, Aleksandra Koroza, Johnny Wong -->
+<!-- Basic template for all pages -->
+<!DOCTYPE html>
+<html>
+  <head>
+        {% block head %}
+         <title>    {% block title %} {% endblock %}</title>
+         <!-- Required meta tags -->
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+          <!-- Bootstrap CSS -->
+          <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+         {% endblock %}
+         <style>
+            .sidebar {
+              width: 175px;
+              position: fixed; /* Fixed location as you scroll*/
+              font-size: x-large;
+              z-index: 1;
+              top: 0;
+              bottom: 0;
+              left: 0;
+              overflow-y: scroll; /* categories scrollable */
+            }
+            #search {
+              padding-right: 240px;
+            }
+          </style>
+  </head>
+  <body>
+        <div class="container bg-white rounded">
+          <div class="container">
+            <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark flex-row">
+              <!-- The navbar present at the top of our demo page -->
+                 <a class="navbar-brand text-info" href="/"><b>Rewind Time</b></a>
+                 <!-- JavaScript is needed for the toggle to function properly in a tiny window where nav-items cannot be seen -->
+                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-icon"></span>
+                      <!-- Stuff can be done here!!! Add smaller versions of the navbar in here as a drop down, since we cannot use JS-->
+                 </button>
+                 <div class="navbar-collapse collapse ml-4 pl-4" id="navbarSupportedContent">
+                      <!--<div class="navbar-nav mr-auto">
+                           <ul class="navbar-nav mx-auto pl-4 pr-4">
+                                <li class="nav-item pl-2"><a class="nav-link text-info" href="/about"><b>ABOUT</b></a></button></li>
+                                <li class="nav-item pl-2"><a class="nav-link text-info" href="/contact"><b>CONTACT</b></a></li>
+                                <li class="nav-item pl-2"><a class="nav-link text-info" href="https://groups.google.com/a/stuy.edu/forum/#!forum/softdev18-19"><b>QAF</b></a></li>
+                           </ul>
+                      -->
+                  </div>
+
+                      {% block login %}
+                      {% endblock %}
+                  </div>
+            </nav>
+          </div>
+        <br><br><br>
+	
+        {% set msgs = get_flashed_messages() %}{# program is now  aware there are flash messages #}
+                {% for each in msgs %}{# Loops through messages #}
+                <div class="container">
+                  <div class="row">
+                      <div class="col-md-12">
+                        <div class="alert alert-warning text-center">
+                          {{each}}
+                        </div>
+                      </div>
+                  </div>
+                </div>
+                {% endfor %}
+
+        {% block content %}
+
+        {% endblock %}
+      <footer class="-footer bg-dark fixed-bottom text-warning text-right ">&copy;dah_its_rewind_time 2018 &mdash; Robin Han, Bill Ni, Simon Tsui, Vincent Chi</footer>
+</body>
+</html>
