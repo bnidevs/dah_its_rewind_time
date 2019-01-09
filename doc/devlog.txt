@@ -16,7 +16,7 @@ pd 8
 ==============================================================
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
-vincentC -- 14:00
+vincentC -- 14:00 010719
 --------------------------------------------------------------
 Successful creation of Deck of Cards API into the Soft Dev knowledge base.
 
@@ -28,7 +28,7 @@ Finished database setup. Wrote most of python database code in util.
 
 ==============================================================
 
-vincentC -- 20:00
+vincentC -- 20:00 010819
 --------------------------------------------------------------
 Used backbone HTML from Robin Han and made it run.
 Repurposed names for this project.
