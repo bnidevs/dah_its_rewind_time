@@ -3,12 +3,6 @@
 {% extends "template.html" %}
 {% block login %}
 <div class="navbar-collapse collapse d-flex flex-row-reverse" id="navbarSupportedContent">
-  <div>
-    <!-- NEAR ME -->
-  <form class="form-inline my-2 my-lg-0" action="/local">
-    <input class="btn btn-outline-warning ml-4" type="submit" name="submit" value = "Near Me">
-  </form>
-  </div>
 {% if not logged_in %}
     <form id="navbarSupportedContent" class="form-inline ml-3 my-2 my-lg-0" action="/authenticate" method="POST">
            <a class="btn btn-outline-info ml-2" href="/register">Register</a>
