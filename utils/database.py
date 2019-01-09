@@ -39,10 +39,56 @@ def addpastmatch(user, match):
 
     c.execute("SELECT match_history WHERE name = ?", (user, ))
     match_history = c.fetchone()
-    if match_history == None:
+    if match_history == None or match_history == "":
         c.execute("UPDATE users SET match_history = ? WHERE name = ?", (match, user))
     else:
         c.execute("UPDATE users SET match_history = ? WHERE name = ?", (match_history + match, user))
+
+    db.commit()
+    db.close()
+
+def formatcurrdata(chips, playername):
+    return chips + ":" + playername
+
+def addcurrmatch(user, match):
+    db = initdb()
+    c = db.cursor()
+
+    c.execute("UPDATE users SET current_games = ? WHERE name = ?", (match, user))
+
+    db.commit()
+    db.close()
+
+def readcurrmatch(user):
+    db = initdb()
+    c = db.cursor()
+
+    c.execute("SELECT current_games WHERE name = ?", (match, user))
+    currmatch = c.fetchone()
+
+    db.commit()
+    db.close()
+
+    return currmatch
+
+def checkcurrmatch(user):
+    db = initdb()
+    c = db.cursor()
+
+    c.execute("SELECT current_games WHERE name = ?", (match, user))
+    currmatch = c.fetchone()
+    rtrnval = (currmatch != "" and currmatch != None)
+
+    db.commit()
+    db.close()
+
+    return rtrnval
+
+def clearcurrmatch(user):
+    db = initdb()
+    c = db.cursor()
+
+    c.execute("UPDATE users SET current_games = ? WHERE name = ?", ("", user))
 
     db.commit()
     db.close()
