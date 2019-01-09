@@ -21,14 +21,18 @@ vincentC -- 14:00
 Successful creation of Deck of Cards API into the Soft Dev knowledge base.
 
 ==============================================================
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
-niB -- 22:00 010819
+vincentC -- 20:00
 --------------------------------------------------------------
-Finished database setup. Wrote most of python database code in util.
+Used backbone HTML from Robin Han and made it run.
+Repurposed names for this project.
 
 ==============================================================
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
 fristL -- TIMESTAMP
 --------------------------------------------------------------
 <Thing fristL did.>
+
 ==============================================================
