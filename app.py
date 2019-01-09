@@ -27,10 +27,9 @@ def setUser(userName):
 
 @app.route('/')
 def home():
-    pops= api.getPopular()
     if user in session:
-        return render_template('home.html', errors = True, logged_in = True)
-    return render_template('home.html', errors = True, logged_in = False)
+        return render_template('index.html', errors = True, logged_in = True)
+    return render_template('index.html', errors = True, logged_in = False)
 
 @app.route('/register')
 def register():

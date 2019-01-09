@@ -5,7 +5,7 @@
 # Used for API access and methods
 import json
 import random
-import requests
+#import requests
 import urllib.request as request
 
 from urllib.request import Request
