@@ -22,7 +22,7 @@ Successful creation of Deck of Cards API into the Soft Dev knowledge base.
 
 ==============================================================
 
-niB -- 22:00
+niB -- 22:00 010819
 --------------------------------------------------------------
 Finished database setup. Wrote most of python database code in util.
 
