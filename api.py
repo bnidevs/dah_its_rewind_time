@@ -10,20 +10,6 @@ import urllib.request as request
 
 from urllib.request import Request
 
-'''
-LIST OF KEYS
-'''
-'''
-key0 = open('key0.txt', 'r')
-key1 = open('key1.txt', 'r')
-key2 = open('key2.txt', 'r')
-movieDB_key = key0.readline().strip()
-showtimes_key = key1.readline().strip()
-ipStack_key = key2.readline().strip()
-key0.close()
-key1.close()
-key2.close()
-'''
 
 '''
 API HELPERS
@@ -31,16 +17,36 @@ API HELPERS
 
 def fetchInfo(url):
     ''' Returns loaded response '''
-    response = request.urlopen(url)
-    response = response.read()
-    info = json.loads(response)
+    response = requests.get(url)
+    info = response.json()
     return info
 
-def newDeck():
-    response = requests.get("https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1")
-    #print(response.json())
-    #response = response.read()
-    #info = json.loads(response)
-    return response.json()
+deckID = "blank"
 
-print(newDeck())
+def newDeck():
+    info = fetchInfo("https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1")
+    global deckID
+    deckID = info['deck_id']
+
+newDeck()
+    
+def draw(num):
+    #print(deckID)
+    url = "https://deckofcardsapi.com/api/deck/{0}/draw/?count={1}".format(deckID, num)
+    #print(url)
+    info = fetchInfo(url)
+    retList = []
+    i = 0
+    while ( i < num):
+        retList.append(info['cards'][i]['code'])
+        i += 1
+        
+    return retList
+
+    
+
+print("1:", draw(2))
+print("2:", draw(2))
+print("3:", draw(3))
+print("4:", draw(0))
+#print(deckID)
