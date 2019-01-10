@@ -224,11 +224,11 @@ function winners_helper(players, test) {
 
 function straight_flush(player) {
   var my_cards = group_cards(player);
-  var the_suit = get_predominant_suit(my_cards);
+  var suit = get_predominant_suit(my_cards);
   var working_cards = new Array(8);
   var working_index = 0;
   for (var i = 0; i < 7; i++) {
-    if (get_suit(my_cards[i]) == the_suit) {
+    if (get_suit(my_cards[i]) == suit) {
       var my_rank = get_rank(my_cards[i]);
       working_cards[working_index++] = my_rank;
       if (my_rank == 14) {
@@ -266,7 +266,7 @@ function straight_flush(player) {
   }
   var num_mine = 0;
   for (var i = 0; i < absolute_longest_stretch; i++) {
-    if (the_suit + (absolute_high_card - i) == player.carda || the_suit + (absolute_high_card - i) == player.cardb) num_mine++;
+    if (suit + (absolute_high_card - i) == player.carda || suit + (absolute_high_card - i) == player.cardb) num_mine++;
   }
   var arr = {};
   arr["straight_high"] = absolute_high_card;
@@ -381,12 +381,12 @@ function full_house(player) {
 
 function flush(player) {
   var my_cards = group_cards(player);
-  var the_suit = get_predominant_suit(my_cards);
+  var suit = get_predominant_suit(my_cards);
   var working_cards = new Array(7);
   var working_index = 0;
   var num_in_flush = 0;
   for (var i = 0; i < my_cards.length; i++) {
-    if (get_suit(my_cards[i]) == the_suit) {
+    if (get_suit(my_cards[i]) == suit) {
       num_in_flush++;
       working_cards[working_index++] = get_rank(my_cards[i]);
     }
@@ -406,13 +406,13 @@ function flush(player) {
       s = "";
     }
     arr["flush_" + i] = s;
-    if (the_suit + working_cards[i] == player.carda || the_suit + working_cards[i] == player.cardb){ 
+    if (suit + working_cards[i] == player.carda || suit + working_cards[i] == player.cardb){ 
       num_mine++;
     }
   }
   arr["num_needed"] = 5 - num_in_flush;
   arr["num_mine"] = num_mine;
-  arr["suit"] = the_suit;
+  arr["suit"] = suit;
   arr["hand_name"] = "Flush";
 
   return arr;
