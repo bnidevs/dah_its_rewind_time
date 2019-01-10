@@ -22,6 +22,11 @@ Successful creation of Deck of Cards API into the Soft Dev knowledge base.
 
 ==============================================================
 
+hanR -- 16:23 010719
+--------------------------------------------------------------
+Successful creation of Deck of Cards API into the Soft Dev knowledge base.
+
+==============================================================
 niB -- 22:00 010819
 --------------------------------------------------------------
 Finished database setup. Wrote most of python database code in util.
@@ -44,6 +49,12 @@ Finished database code. Updated README.
 niB -- 15:00 010919
 --------------------------------------------------------------
 Updated repo design doc.
+
+==============================================================
+
+hanR -- 22:10 010919
+--------------------------------------------------------------
+Coded all Poker hand checking logic in javascript. Did not test yet.
 
 ==============================================================
 
