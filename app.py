@@ -61,11 +61,10 @@ def authenticate():
         return redirect(curr_page)
     # REGISTERING
     else:
-        if len(username.strip()) != 0 and not data.findUser(username):
+        if len(username.strip()) != 0 and not database.newuser(username, password):
             if len(password.strip()) != 0:
                 # add account to DB
                 database.newuser(username, password)
-                #data.setOut()
                 flash('Successfully registered account for user  "{}"'.format(username))
                 return redirect(url_for('home'))
             else:
