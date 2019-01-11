@@ -5,14 +5,35 @@ dbfile = "data/userdata.db"
 def initdb():
     return sqlite3.connect(dbfile)
 
+def checkuser(user):
+    db = initdb()
+    c = db.cursor()
+
+    c.execute("SELECT * FROM users WHERE name = ?", (user, ))
+    dupusers = c.fetchall()
+
+    db.close()
+
+    return len(dupusers) > 0
+
+def loginuser(user, password):
+    db = initdb()
+    c = db.cursor()
+
+    c.execute("SELECT * FROM users WHERE name = ? AND password = ?", (user, password))
+    creds = c.fetchall()
+
+    db.close()
+
+    return len(creds) > 0
+
 def newuser(user, password):
     db = initdb()
     c = db.cursor()
 
     c.execute("SELECT * FROM users WHERE name = ?", (user, ))
     dupusers = c.fetchall()
-    if len(data) > 0:
-        return False
+    print(dupusers)
 
     c.execute("INSERT INTO users VALUES(?,?,?,?,?)", (user, password, 20000, "", ""))
 

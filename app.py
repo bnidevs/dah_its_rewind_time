@@ -51,7 +51,7 @@ def authenticate():
     print(curr_page)
     # LOGGING IN
     if request.form["submit"] == "Login":
-        if username != "" and password != "" and database.newuser(username, password):
+        if username != "" and password != "" and database.loginuser(username, password):
             session[username] = password
             setUser(username)
             flash('Successfully logged in!')
@@ -61,7 +61,7 @@ def authenticate():
         return redirect(curr_page)
     # REGISTERING
     else:
-        if len(username.strip()) != 0 and not database.newuser(username, password):
+        if len(username.strip()) != 0 and not database.checkuser(username):
             if len(password.strip()) != 0:
                 # add account to DB
                 database.newuser(username, password)
