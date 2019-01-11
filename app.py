@@ -27,20 +27,20 @@ def setUser(userName):
 @app.route('/')
 def home():
     if user in session:
-        return render_template('login.html', errors = True, logged_in = True)
-    return render_template('index.html', errors = True, logged_in = False)
+        return render_template('login.html', username = user, errors = True, logged_in = True)
+    return render_template('index.html', username = "", errors = True, logged_in = False)
 
 @app.route('/register')
 def register():
     if user in session:
         return redirect(url_for('home'))
-    return render_template('register.html', logged_in=False)
+    return render_template('register.html',username = "", logged_in=False)
 
 @app.route('/login', methods=['POST'])
 def login():
     if user in session:
         return redirect(url_for('home'))
-    return render_template('login.html', logged_in=False)
+    return render_template('login.html',username = "", logged_in=False)
 
 @app.route('/authenticate', methods=['POST'])
 def authenticate():
@@ -74,7 +74,7 @@ def authenticate():
         else:
             flash('Username already taken!')
         # Try to register again
-        return render_template('register.html', errors = True)
+        return render_template('register.html', username = "", errors = True)
 
 @app.route('/logout')
 def logout():
