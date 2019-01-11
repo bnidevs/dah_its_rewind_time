@@ -64,6 +64,12 @@ Coded all Poker hand checking logic in javascript. Did not test yet.
 
 ==============================================================
 
+niB -- 22:20 011019
+--------------------------------------------------------------
+Fixed login/register bugs with database from commit 3c371778e594423d38bd72ce4492a4aad4c74eb4
+
+==============================================================
+
 fristL -- TIMESTAMP
 --------------------------------------------------------------
 <Thing fristL did.>
