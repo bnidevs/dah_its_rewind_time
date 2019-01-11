@@ -31,10 +31,6 @@ def newuser(user, password):
     db = initdb()
     c = db.cursor()
 
-    c.execute("SELECT * FROM users WHERE name = ?", (user, ))
-    dupusers = c.fetchall()
-    print(dupusers)
-
     c.execute("INSERT INTO users VALUES(?,?,?,?,?)", (user, password, 20000, "", ""))
 
     db.commit()
