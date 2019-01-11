@@ -87,13 +87,19 @@ def logout():
     flash('Successfully logged out!')
     return redirect(curr_page)
 
-@app.route('/about')
-def about():
-    return render_template('about.html')
+#@app.route('/about')
+#def about():
+#    return render_template('about.html')
 
-@app.route('/contact')
-def contact():
-    pass
+#@app.route('/contact')
+#def contact():
+#    pass
+
+@app.route('/profile')
+def profile():
+    if user in session:
+        return render_template('profile.html', logged_in = True)
+    return render_template('index.html', errors = True, logged_in = False)
 
 if __name__ == '__main__':
     app.debug = True
