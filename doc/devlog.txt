@@ -77,6 +77,15 @@ Worked in unison with Bill Ni.
 Login and Register now works.
 
 ==============================================================
+
+billN -- 22:00 011119
+--------------------------------------------------------------
+Added profile page to display match history, account information.
+Added change password functionality.
+Added alerts to login and change password page.
+
+==============================================================
+
 fristL -- TIMESTAMP
 --------------------------------------------------------------
 <Thing fristL did.>
