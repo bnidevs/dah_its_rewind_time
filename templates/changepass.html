@@ -1,0 +1,36 @@
+{% extends "template.html" %}
+{% block title %} Change Password - {{ username }} {% endblock %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col-md-8">
+			<h2 class="text-info pb-2"><b>Change Password</b></h2>
+			{% if alerts != [] %}
+  			{% for alert in alerts %}
+		  		<div class="alert alert-danger" role="alert">
+		  			{{ alert }}
+		  		</div>
+		  	{% endfor %}
+	  	{% endif %}
+		</div>
+	</div>
+	<div class="row">
+	  <div class="col-md-4">
+	  	<form class="form-inline my-2 my-lg-0" action="/updatepass" method="POST">
+	  		<div class="row pb-2">
+          <div class="col">
+        		<input type="password" class="form-control mr-sm-2" name="pass" placeholder="Password" required>
+        	</div>
+        </div>
+        <div class="row pb-4">
+          <div class="col">
+       			<input type="password" class="form-control mr-sm-2" name="verpass" placeholder="Retype Password" required>
+       		</div>
+       	</div>
+      	<input class="btn btn-warning text-dark shadow mb-5" type="submit" name="submit" value = "Change Password">
+	  	</form>
+	  </div>
+	</div>
+</div>
+{% endblock %}

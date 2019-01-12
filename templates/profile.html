@@ -1,0 +1,68 @@
+{% extends "template.html" %}
+{% block title %} Profile - {{ username }} {% endblock %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+	  <div class="col-md-4">
+	  	<h3>
+	  		Info
+	  	</h3>
+	    <table class="table">
+	    	<tr>
+	    		<th scope="row">
+	    			Username:
+	    		</th>
+	    		<td style="text-align: left;">
+	    			{{ username }}
+	    		</td>
+	    	</tr>
+	    	<tr>
+	    		<th scope="row">
+	    			Chips:
+	    		</th>
+	    		<td style="text-align: left;">
+	    			{{ numchips }}
+	    		</td>
+	    	</tr>
+	    </table>
+
+	    <br>
+
+	    <form class="form-inline my-2 my-lg-0" action="/changepass">
+	    	<input class="btn btn-outline-warning ml-4" type="submit" name="submit" value="Change Password">
+	    </form>
+	  </div>
+
+	  <div class="col-md-8">
+	  	<h3>
+	  		Match History
+	  	</h3>
+	    <table class="table">
+	    	<tr>
+		      <th scope="col">Time</th>
+		      <th scope="col">Chips</th>
+		      <th scope="col">Rank</th>
+		    </tr>
+	    	{% for match in matches %}
+		    	<tr {% if match['rank'] < 4 %}
+		    				style="background-color: #8AF393"
+		    			{% else %}
+		    				style="background-color: #F38A8A"
+		    			{% endif %}>
+		    		<th scope="row">
+		    			{{ match['time'] }}
+		    		</th>
+		    		<td style="text-align: left;">
+		    			{{ match['chips'] }}
+		    		</td>
+		    		<td style="text-align: left;">
+		    			{{ match['rank'] }}
+		    		</td>
+		    	</tr>
+		    {% endfor %}
+	    </table>
+	  </div>
+	</div>
+</div>
+{% endblock %}

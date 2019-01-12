@@ -27,7 +27,7 @@ def setUser(userName):
 @app.route('/')
 def home():
     if user in session:
-        return render_template('login.html', username = user, errors = True, logged_in = True)
+        return render_template('login.html', username = user, alerts=[], errors = True, logged_in = True)
     return render_template('index.html', username = "", errors = True, logged_in = False)
 
 @app.route('/register')
@@ -40,7 +40,7 @@ def register():
 def login():
     if user in session:
         return redirect(url_for('home'))
-    return render_template('login.html',username = "", logged_in=False)
+    return render_template('login.html',username = "", alerts=[], logged_in=False)
 
 @app.route('/authenticate', methods=['POST'])
 def authenticate():
@@ -98,8 +98,31 @@ def logout():
 @app.route('/profile')
 def profile():
     if user in session:
-        return render_template('profile.html', logged_in = True)
-    return render_template('index.html', errors = True, logged_in = False)
+        chips = database.fetchchips(user)
+        return render_template('profile.html', username = user, numchips=chips, matches=database.getpastmatches(user), logged_in = True)
+    return render_template('index.html', username = "", errors = True, logged_in = False)
+
+@app.route('/changepass')
+def changepass():
+    if user in session:
+        return render_template('changepass.html', username=user, alerts=[], logged_in = True)
+    return render_template('index.html', username = "", errors = True, logged_in = False)
+
+@app.route('/updatepass', methods=["POST"])
+def updatepass():
+    if user in session:
+        passeq = (request.form["pass"] == request.form["verpass"])
+        passdiff = (request.form["pass"] != database.getpassword(user))
+        if passeq and passdiff:
+            database.resetpassword(user, request.form["pass"])
+            return render_template('login.html', username = user, errors = True, alerts=["Successfully changed password"], logged_in = True)
+
+        passerrs = []
+        if not passeq:
+            passerrs.append("Passwords not the same")
+        if not passdiff:
+            passerrs.append("Password cannot be the same as previous password")
+        return render_template("changepass.html", username=user, alerts=passerrs, logged_in = True)
 
 if __name__ == '__main__':
     app.debug = True
