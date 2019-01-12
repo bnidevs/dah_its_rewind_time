@@ -100,8 +100,6 @@ def getpastmatches(user):
         currmatch = deformatmatch(match_history[i])
         match_history[i] = {"time": currmatch[2], "chips": int(currmatch[0]), "rank": int(currmatch[1])}
 
-    print(match_history)
-
     db.close()
 
     return match_history
@@ -122,8 +120,11 @@ def readcurrmatch(user):
     db = initdb()
     c = db.cursor()
 
-    c.execute("SELECT current_games FROM users WHERE name = ?", (match, user))
+    c.execute("SELECT current_games FROM users WHERE name = ?", (user, ))
     currmatch = c.fetchone()[0]
+
+    if currmatch == None:
+        currmatch = ""
 
     db.close()
 
