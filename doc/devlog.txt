@@ -86,6 +86,14 @@ Added alerts to login and change password page.
 
 ==============================================================
 
+robinH -- 4:05 011319
+--------------------------------------------------------------
+Used AI Code found online and completed the java logic and player game. Now player is able to play poker with bots. Some bugs may
+exist, not enough testing.
+
+==============================================================
+
+
 fristL -- TIMESTAMP
 --------------------------------------------------------------
 <Thing fristL did.>
