@@ -27,14 +27,18 @@ def setUser(userName):
 @app.route('/')
 def home():
     if user in session:
-        return render_template('poker.html', username = user, alerts=[], errors = True, logged_in = True)
-    return render_template('poker.html', username = "", errors = True, logged_in = False)
+        return render_template('login.html', username = user, alerts=[], errors = True, logged_in = True)
+    return render_template('index.html', username = "", errors = True, logged_in = False)
 
 @app.route('/register')
 def register():
     if user in session:
         return redirect(url_for('home'))
     return render_template('register.html',username = "", logged_in=False)
+	
+@app.route('/newgame')
+def newgame():
+    return render_template('poker.html',username = "", logged_in=True)
 
 @app.route('/login', methods=['POST'])
 def login():

@@ -7,14 +7,16 @@
   <div class="row">
     <div class="col-md-12">
       <img src="../static/table.png" width="100%" style="margin-bottom: -200px; margin-top: -200px">
-      <a class="btn btn-warning ml-4" href="/play" role="button" style="position: absolute; left: 43.5%; top: 45%">
-        {% if game != "" %}
-          Continue
-        {% else %}
+      <a class="btn btn-warning ml-4" href="/newgame" role="button" style="position: absolute; left: 38%; top: 45%">
           New Game
-        {% endif %}
+	  {% if game != "" %}
+      <a class="btn btn-warning ml-4" href="/continue" role="button" style="position: absolute; left: 49%; top: 45%">
+          Continue
+      </a>
+	{% endif %}
       </a>
     </div>
+
   </div>
 
   <div class="row">
