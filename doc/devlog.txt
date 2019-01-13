@@ -86,13 +86,6 @@ Added alerts to login and change password page.
 
 ==============================================================
 
-billN -- 12:22 011219
---------------------------------------------------------------
-Added clear match in progress functionality.
-Added info to login welcome page.
-
-==============================================================
-
 fristL -- TIMESTAMP
 --------------------------------------------------------------
 <Thing fristL did.>

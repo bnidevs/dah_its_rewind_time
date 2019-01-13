@@ -27,8 +27,8 @@ def setUser(userName):
 @app.route('/')
 def home():
     if user in session:
-        return render_template('login.html', username = user, alerts=[], errors = True, logged_in = True, game=database.readcurrmatch(user))
-    return render_template('index.html', username = "", errors = True, logged_in = False)
+        return render_template('poker.html', username = user, alerts=[], errors = True, logged_in = True)
+    return render_template('poker.html', username = "", errors = True, logged_in = False)
 
 @app.route('/register')
 def register():
@@ -40,7 +40,7 @@ def register():
 def login():
     if user in session:
         return redirect(url_for('home'))
-    return render_template('login.html',username = "", alerts=[], logged_in=False, game=database.readcurrmatch(user))
+    return render_template('login.html',username = "", alerts=[], logged_in=False)
 
 @app.route('/authenticate', methods=['POST'])
 def authenticate():
@@ -98,7 +98,8 @@ def logout():
 @app.route('/profile')
 def profile():
     if user in session:
-        return render_template('profile.html', username = user, numchips=database.fetchchips(user), matches=database.getpastmatches(user), logged_in = True)
+        chips = database.fetchchips(user)
+        return render_template('profile.html', username = user, numchips=chips, matches=database.getpastmatches(user), logged_in = True)
     return render_template('index.html', username = "", errors = True, logged_in = False)
 
 @app.route('/changepass')
@@ -114,7 +115,7 @@ def updatepass():
         passdiff = (request.form["pass"] != database.getpassword(user))
         if passeq and passdiff:
             database.resetpassword(user, request.form["pass"])
-            return render_template('login.html', username = user, errors = True, alerts=["Successfully changed password"], logged_in = True, game=database.readcurrmatch(user))
+            return render_template('login.html', username = user, errors = True, alerts=["Successfully changed password"], logged_in = True)
 
         passerrs = []
         if not passeq:
@@ -122,14 +123,6 @@ def updatepass():
         if not passdiff:
             passerrs.append("Password cannot be the same as previous password")
         return render_template("changepass.html", username=user, alerts=passerrs, logged_in = True)
-    return render_template('index.html', username = "", errors = True, logged_in = False)
-
-@app.route('/clearcurrmatch')
-def clearmatchinprogress():
-    if user in session:
-        database.clearcurrmatch(user)
-        return render_template('profile.html', username = user, numchips=database.fetchchips(user), matches=database.getpastmatches(user), logged_in = True, alerts=["Current Match Cleared"])
-    return render_template('index.html', username = "", errors = True, logged_in = False)
 
 if __name__ == '__main__':
     app.debug = True
