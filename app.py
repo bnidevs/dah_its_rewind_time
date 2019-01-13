@@ -35,10 +35,14 @@ def register():
     if user in session:
         return redirect(url_for('home'))
     return render_template('register.html',username = "", logged_in=False)
+
+@app.route('/help')
+def help():
+    return render_template('help.html',username = user, logged_in=True)
 	
 @app.route('/newgame')
 def newgame():
-    return render_template('poker.html',username = "", logged_in=True)
+    return render_template('poker.html',username = user, logged_in=True)
 
 @app.route('/login', methods=['POST'])
 def login():
