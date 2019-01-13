@@ -294,17 +294,6 @@ select {
     width: 600px;
 }
 
-#production-code {
-    color: black; 
-    font-size: 10px;
-    height: 20px;
-    left: 800px;
-    position: absolute;
-    text-align: right;
-    top: 310px;
-    width: 600px;
-}
-
 .response-normal {
     background-color: #FFFFFF;
 }
