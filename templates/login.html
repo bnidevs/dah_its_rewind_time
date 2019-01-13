@@ -7,28 +7,28 @@
   <div class="row">
     <div class="col-md-12">
       <img src="../static/table.png" width="100%" style="margin-bottom: -200px; margin-top: -200px">
-      <a class="btn btn-warning ml-4" href="/newgame" role="button" style="position: absolute; left: 38%; top: 45%">
-          New Game
-	  {% if game != "" %}
-      <a class="btn btn-warning ml-4" href="/continue" role="button" style="position: absolute; left: 49%; top: 45%">
+      <a class="btn btn-warning ml-4" href="/play" role="button" style="position: absolute; left: 43.5%; top: 45%">
+        {% if game != "" and game != None%}
           Continue
-      </a>
-	{% endif %}
+        {% else %}
+          New Game
+        {% endif %}
       </a>
     </div>
 
   </div>
 
-  <div class="row">
+  <div class="row" style="margin-bottom: -35px">
     <div class="col-md-12">
       <div class="row pb-2">
         <h2>Instructions</h2>
       </div>
+
+      <div class="row">
+        <a class="btn btn-primary" href="https://www.cardplayer.com/rules-of-poker/how-to-play-poker/games/texas-holdem" role="button" style="margin-left: 30px; margin-right: 10px">How to Play</a>
+      </div>
     </div>
   </div>
-
-  <a class="btn btn-primary" href="https://www.cardplayer.com/rules-of-poker/how-to-play-poker/games/texas-holdem" role="button" style="position: absolute; left: 15%">How to Play</a>
-  <a class="btn btn-primary" href="/help" role="button" style="position: absolute; left: 23%">Help</a>
 
   <br>
 

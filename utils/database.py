@@ -92,7 +92,13 @@ def getpastmatches(user):
     c = db.cursor()
 
     c.execute("SELECT match_history FROM users WHERE name = ?", (user, ))
-    match_history = c.fetchone()[0].split(";")
+    match_history = c.fetchone()[0]
+
+    if match_history == "" or match_history == None:
+        return ""
+    else:
+        match_history = match_history.split(";")
+
     if match_history[-1] == "" and match_history[0] != "":
         match_history = match_history[0:-1]
 
@@ -122,7 +128,7 @@ def readcurrmatch(user):
     db = initdb()
     c = db.cursor()
 
-    c.execute("SELECT current_games FROM users WHERE name = ?", (match, user))
+    c.execute("SELECT current_games FROM users WHERE name = ?", (user, ))
     currmatch = c.fetchone()[0]
 
     db.close()
@@ -133,7 +139,7 @@ def checkcurrmatch(user):
     db = initdb()
     c = db.cursor()
 
-    c.execute("SELECT current_games FROM users WHERE name = ?", (match, user))
+    c.execute("SELECT current_games FROM users WHERE name = ?", (user, ))
     currmatch = c.fetchone()[0]
     rtrnval = (currmatch != "" and currmatch != None)
 
