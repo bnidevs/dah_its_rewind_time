@@ -4,7 +4,7 @@ var RUN_EM = 0;
 var STARTING_BANKROLL = 500;
 var SMALL_BLIND;
 var BIG_BLIND;
-var BG_HILITE = 'gold';           
+var BG_HILITE = 'gold';
 var global_speed = 1;
 var HUMAN_WINS_AGAIN;
 var HUMAN_GOES_ALL_IN;
@@ -75,13 +75,13 @@ function generate_cards(deck){
 function handle_how_many_reply (opponents) {
   write_modal_box("");
   new_game_continues(opponents);
-  initialize_css();       
+  initialize_css();
   show_game_response();
 }
 
 function ask_how_many_opponents () {
   var quick_values = [1, 2, 3, 4, 5, 6, 7];
-  var asking = "<b><font size=+4 color=FF0000>So, how many opponents do you want?</font></b><br>";
+  var asking = "<b><br><br><br><font size=+4 color=FF0000>So, how many opponents do you want?</font></b><br>";
   for (var i = 0; i < 7; i++) {
     if (quick_values[i]) {
       asking += "<font size=+4><a href='javascript:parent.handle_how_many_reply(" + quick_values[i] + ")'>" + quick_values[i] + " </a></font>" + "&nbsp;&nbsp;&nbsp;";
@@ -130,7 +130,6 @@ function new_game_continues (req_no_opponents) {
     player_name = "You";
   }
   players[0] = new player(player_name, 0, "", "", "", 0, 0);
-  my_players.sort(compRan);
   var i;
   for (i = 1; i < players.length; i++) {
     players[i] = my_players[i - 1];
@@ -157,7 +156,7 @@ function new_round () {
     }
   }
   if (num_playing < 2) {
-    var html = "<html><body topmargin=2 bottommargin=0 bgcolor=" +
+    var html = "<html><br><br><br><body topmargin=2 bottommargin=0 bgcolor=" +
                BG_HILITE + " onload='document.f.y.focus();'>" +
                "<font size=+2>Play again?</font><form name=f><input name=y type=button value='  Yes  ' onclick='parent.new_game()'><input type=button value='  No  ' onclick='parent.confirm_quit()'></form></body></html>";
     write_modal_box(html);
@@ -174,11 +173,11 @@ function new_round () {
     write_player(i, 0, 0);
   }
   for (i = 0; i < board.length; i++) {
-    if (i > 4) {        
+    if (i > 4) {
       continue;
     }
     board[i] = "";
-    lay_board_card(i, board[i]);     
+    lay_board_card(i, board[i]);
   }
   var message = "<tr><td><font size=+2><b>New round</b></font>";
   write_game_response(message);
@@ -459,13 +458,13 @@ function handle_end_of_round () {
     var share = current_pot_to_split / num_winners;
     for (i = 0; i < winners.length; i++) {
       if (my_total_bets_per_player[i] < 0.01) {
-        candidates[i] = null; 
+        candidates[i] = null;
       }
-      if (!winners[i]) {      
+      if (!winners[i]) {
         continue;
       }
-      my_total_pot_size -= share; 
-      allocations[i] += share; 
+      my_total_pot_size -= share;
+      allocations[i] += share;
       winning_hands[i] = winners[i].hand_name;
     }
   }
@@ -641,7 +640,7 @@ function the_bet_function (player_index, bet_amount) {
       my_pseudo_alert("Minimum raise is currently " + current_min_raise + ".");
     }
     return 0;
-  } else { 
+  } else {
     players[player_index].status = "CALL";
 
     old_current_bet = current_bet;
@@ -723,19 +722,19 @@ function bet_from_bot (x) {
   var n = current_bet - players[x].subtotal_bet;
   if (!board[0]) b = bot_get_preflop_bet();
   else b = bot_get_postflop_bet();
-  if (b >= players[x].bankroll) { 
+  if (b >= players[x].bankroll) {
     players[x].status = "";
-  } else if (b < n) { 
+  } else if (b < n) {
     b = 0;
     players[x].status = "FOLD";
-  } else if (b == n) { 
+  } else if (b == n) {
     players[x].status = "CALL";
   } else if (b > n) {
-    if (b - n < current_min_raise) { 
+    if (b - n < current_min_raise) {
       b = n;
       players[x].status = "CALL";
     } else {
-      players[x].status = ""; 
+      players[x].status = "";
     }
   }
   if (the_bet_function(x, b) == 0) {
@@ -752,10 +751,10 @@ function write_player (n, hilite, show_cards) {
   var cardb = "";
   var name_background_color = "";
   var name_font_color = "";
-  if (hilite == 1) {           
+  if (hilite == 1) {
     name_background_color = BG_HILITE;
     name_font_color = 'black';
-  } else if (hilite == 2) {     
+  } else if (hilite == 2) {
     name_background_color = 'red';
   }
   if (players[n].status == "FOLD") {
@@ -808,7 +807,7 @@ function write_player (n, hilite, show_cards) {
     bet_text = allin + "$" + players[n].subtotal_bet + " (" + (players[n].subtotal_bet + players[n].total_bet) + ")";
   }
 
-  set_player_name(players[n].name, n);   
+  set_player_name(players[n].name, n);
   set_bet(bet_text, n);
   set_bankroll(players[n].bankroll, n);
   set_player_cards(carda, cardb, n);
