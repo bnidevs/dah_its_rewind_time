@@ -1,6 +1,4 @@
-/*
-IMPORTANT NOTE: THIS CODE DOES NOT BELONG TO US. YOU CAN FIND IT HERE AT https://sourceforge.net/projects/jsholdem/files/jsholdem/jsholdem%200.9%20beta/
-*/
+/*NOTE!!!!!: THIS IS NOT OUR CODE, WE ARE USING THE EXISTING CODE FOR A TEXAS HOLDEM JAVASCRIPT BOT. MORE CAN BE FOUND HERE: https://sourceforge.net/projects/jsholdem/files/jsholdem/jsholdem%200.9%20beta/ */
 
 var P, HCONF, ID_CONF, CALL_LEVEL, BET_LEVEL, POT_LEVEL, BANKROLL;
 var CALL, SMALL, MED, BIG, ALLIN;
@@ -12,7 +10,7 @@ var FOLD = 0;
 // PREFLOP
 function bot_get_preflop_bet () {
   internal_setup();
-//  gui_log_to_history(players[current_better_index].name + " has " + HCONF + " human wins: " + HUMAN_WINS_AGAIN);
+//  gui_log_to_history(players[current_bettor_index].name + " has " + HCONF + " human wins: " + HUMAN_WINS_AGAIN);
 
   if ((HUMAN_GOES_ALL_IN || HUMAN_WINS_AGAIN > 1) && (HCONF > 60 || RANKA == RANKB || RANKA > 13 || RANKB > 13)) {
 //    gui_log_to_history("Triggered human wins: " + HUMAN_WINS_AGAIN);
@@ -154,7 +152,7 @@ var hole_rankings =
   "87:26,A9:26,Q9:25,76:25,42s:23,32s:23,96s:23,85s:22,J8:22,J7s:22,65:22,54:22,74s:21,K9:22,T8:21,";
 
 function internal_get_hole_ranking () {
-  var player = players[current_better_index];
+  var player = players[current_bettor_index];
   var a = player.carda;
   var b = player.cardb;
   var n_rank_a = get_rank(a);
@@ -187,6 +185,7 @@ function internal_my_make_readable_rank (r) {
 }
 
 function internal_lookup_hole_ranking (h) {
+  console.log(h);
   var i = hole_rankings.indexOf(h + ":");
   if (i < 0) return 0;
   var j = hole_rankings.indexOf(",", i);
@@ -345,7 +344,7 @@ function bot_get_postflop_bet () {
   // special case if verdict is MAYBE AND i have a draw...tend not to fold
   // special case where verdict is good & i have a draw...tend not to fold
   if ((HUMAN_GOES_ALL_IN || HUMAN_WINS_AGAIN > 1) && (VERDICT == "GREAT" || VERDICT == "GOOD" || VERDICT == "MAYBE" || RANKA == RANKB)) {
-//    gui_log_to_history(players[current_better_index].name + " has " + VERDICT);
+//    gui_log_to_history(players[current_bettor_index].name + " has " + VERDICT);
     var other_making_stand = 0;
     for (i = 1; i < players.length; i++) {
       if (players[i].bankroll < 1 && players[i].status != "BUST") {
@@ -500,7 +499,7 @@ function internal_exists_straight_potential () {
 
 // ETC.
 function internal_setup () {
-  P = players[current_better_index];
+  P = players[current_bettor_index];
   CALL = current_bet - P.subtotal_bet;
   RANKA = get_rank(P.carda);
   RANKB = get_rank(P.cardb);
@@ -604,7 +603,7 @@ function internal_get_bet_level (b) {
 
 function internal_get_pot_level () {
   var p = get_pot_size();
-  var b = players[current_better_index].bankroll;
+  var b = players[current_bettor_index].bankroll;
   if (p > 0.5 * b) {
     return 100;
   }

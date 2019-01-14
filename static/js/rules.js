@@ -1,6 +1,8 @@
 
 var tests = ["straight_flush", "four_of_a_kind", "full_house", "flush", "straight", "three_of_a_kind", "two_pair", "one_pair", "hi_card"];
 
+
+
 function get_winners (my_players) {
   var winners;
   for (var i = 0; i < tests.length; i++) {
@@ -78,7 +80,7 @@ function winners_helper (my_players, test) {
   var best;
   var winners = new Array(my_players.length);
   for (var i = 0; i < my_players.length; i++) {
-    if (!my_players[i]) { 
+    if (!my_players[i]) { // Busted or folded
       continue;
     }
     var a = execute_test("is_" + test, my_players[i]);
@@ -92,11 +94,11 @@ function winners_helper (my_players, test) {
       winners[i] = a;
     } else {
       var comp = execute_compare("compare_" + test, a, best);
-      if (comp == "a") { // a won
+      if (comp == "a") { 
         best = a;
         winners = new Array(my_players.length); 
         winners[i] = a;
-      } else if (comp == "b") {
+      } else if (comp == "b") { 
       } else if (comp == "c") { 
         winners[i] = a;
       }
@@ -109,6 +111,36 @@ function winners_helper (my_players, test) {
   }
   return null;
 }
+
+//TESTING
+
+function is_hi_card (player) {
+  var i;
+  var my_cards = group_cards(player);
+  var working_cards = new Array(my_cards.length);
+  for (i = 0; i < working_cards.length; i++) {
+    working_cards[i] = get_rank(my_cards[i]);
+  }
+  for (i = 0; i < working_cards.length; i++) {
+    if (working_cards[i] == null) {
+      working_cards[i] = -1;
+    }
+  }
+  working_cards.sort(compNum);
+  var hash_result = {};
+  for (i = 0; i < 5; i++) {
+    if (!working_cards[i]) {
+      working_cards[i] = "";
+    }
+    hash_result["hi_card_" + i] = working_cards[i];
+  }
+  hash_result["num_needed"] = 0;
+  hash_result["hand_name"] = "High Card";
+
+  return hash_result;
+}
+
+
 
 function is_straight_flush (player) {
   var my_cards = group_cards(player);
@@ -162,11 +194,6 @@ function is_straight_flush (player) {
 
   return hash_result;
 }
-
-function compare_straight_flush (a, b) {
-  return compare_straight(a, b);
-}
-
 function is_four_of_a_kind (player) {
   var i;
   var my_cards = group_cards(player);
@@ -206,20 +233,6 @@ function is_four_of_a_kind (player) {
   hash_result["hand_name"] = "Four of a Kind";
 
   return hash_result;
-}
-
-function compare_four_of_a_kind (a, b) {
-  var rank_a = a["rank"];
-  var rank_b = b["rank"];
-  if (rank_a > rank_b) return "a";
-  else if (rank_b > rank_a) return "b";
-  else {
-    var kicker_a = a["kicker"];
-    var kicker_b = b["kicker"];
-    if (kicker_a > kicker_b) return "a";
-    else if (kicker_b > kicker_a) return "b";
-    else return "c";
-  }
 }
 
 function is_full_house (player) {
@@ -274,20 +287,6 @@ function is_full_house (player) {
   return hash_result;
 }
 
-function compare_full_house (a, b) {
-  var major_a = a["major_rank"];
-  var major_b = b["major_rank"];
-  if (major_a > major_b) return "a";
-  else if (major_b > major_a) return "b";
-  else {
-    var minor_a = a["minor_rank"];
-    var minor_b = b["minor_rank"];
-    if (minor_a > minor_b) return "a";
-    else if (minor_b > minor_a) return "b";
-    else return "c";
-  }
-}
-
 function is_flush (player) {
   var i;
   var my_cards = group_cards(player);
@@ -303,7 +302,7 @@ function is_flush (player) {
   }
   for (i = 0; i < working_cards.length; i++) {
     if (working_cards[i] == null) {
-      working_cards[i] = -1;
+      working_cards[i] = -1; // FF
     }
   }
   working_cards.sort(compNum);
@@ -323,20 +322,6 @@ function is_flush (player) {
 
   return hash_result;
 }
-
-function compare_flush (a, b) {
-  for (var i = 0; i < 5; i++) {
-    var flush_a = a["flush_" + i];
-    var flush_b = b["flush_" + i];
-    if (flush_a > flush_b) {
-      return "a";
-    } else if (flush_b > flush_a) {
-      return "b";
-    }
-  }
-  return "c";
-}
-
 function is_straight (player) {
   var i;
   var my_cards = group_cards(player);
@@ -353,7 +338,7 @@ function is_straight (player) {
   }
   for (i = 0; i < working_cards.length; i++) {
     if (working_cards[i] == null) {
-      working_cards[i] = -1; 
+      working_cards[i] = -1;
     }
   }
   working_cards.sort(compNum);
@@ -396,19 +381,6 @@ function is_straight (player) {
 
   return hash_result;
 }
-
-function compare_straight (a, b) {
-  var hi_a = a["straight_hi"];
-  var hi_b = b["straight_hi"];
-  if (hi_a > hi_b) {
-    return "a";
-  } else if (hi_b > hi_a) {
-    return "b";
-  } else {
-    return "c";
-  }
-}
-
 function is_three_of_a_kind (player) {
   var i;
   var my_cards = group_cards(player);
@@ -454,35 +426,6 @@ function is_three_of_a_kind (player) {
 
   return hash_result;
 }
-
-function compare_three_of_a_kind (a, b) {
-  var rank_a = a["rank"];
-  var rank_b = b["rank"];
-  if (rank_a > rank_b) {
-    return "a";
-  }
-  if (rank_b > rank_a) {
-    return "b";
-  }
-  var kicker_a = a["kicker_1"];
-  var kicker_b = b["kicker_1"];
-  if (kicker_a > kicker_b) {
-    return "a";
-  }
-  if (kicker_b > kicker_a) {
-    return "b";
-  }
-  kicker_a = a["kicker_2"];
-  kicker_b = b["kicker_2"];
-  if (kicker_a > kicker_b) {
-    return "a";
-  }
-  if (kicker_b > kicker_a) {
-    return "b";
-  }
-  return "c";
-}
-
 function is_two_pair (player) {
   var i;
   var my_cards = group_cards(player);
@@ -528,35 +471,6 @@ function is_two_pair (player) {
 
   return hash_result;
 }
-
-function compare_two_pair (a, b) {
-  var rank_a = a["rank_1"];
-  var rank_b = b["rank_1"];
-  if (rank_a > rank_b) {
-    return "a";
-  }
-  if (rank_b > rank_a) {
-    return "b";
-  }
-  rank_a = a["rank_2"];
-  rank_b = b["rank_2"];
-  if (rank_a > rank_b) {
-    return "a";
-  }
-  if (rank_b > rank_a) {
-    return "b";
-  }
-  var kicker_a = a["kicker"];
-  var kicker_b = b["kicker"];
-  if (kicker_a > kicker_b) {
-    return "a";
-  }
-  if (kicker_b > kicker_a) {
-    return "b";
-  }
-  return "c";
-}
-
 function is_one_pair (player) {
   var i;
   var my_cards = group_cards(player);
@@ -601,6 +515,130 @@ function is_one_pair (player) {
   return hash_result;
 }
 
+// COMPARE
+
+function compare_straight_flush (a, b) {
+  return compare_straight(a, b);
+}
+
+function compare_four_of_a_kind (a, b) {
+  var rank_a = a["rank"];
+  var rank_b = b["rank"];
+  if (rank_a > rank_b) return "a";
+  else if (rank_b > rank_a) return "b";
+  else {
+    var kicker_a = a["kicker"];
+    var kicker_b = b["kicker"];
+    if (kicker_a > kicker_b) return "a";
+    else if (kicker_b > kicker_a) return "b";
+    else return "c";
+  }
+}
+
+
+
+function compare_full_house (a, b) {
+  var major_a = a["major_rank"];
+  var major_b = b["major_rank"];
+  if (major_a > major_b) return "a";
+  else if (major_b > major_a) return "b";
+  else {
+    var minor_a = a["minor_rank"];
+    var minor_b = b["minor_rank"];
+    if (minor_a > minor_b) return "a";
+    else if (minor_b > minor_a) return "b";
+    else return "c";
+  }
+}
+
+
+
+function compare_flush (a, b) {
+  for (var i = 0; i < 5; i++) {
+    var flush_a = a["flush_" + i];
+    var flush_b = b["flush_" + i];
+    if (flush_a > flush_b) {
+      return "a";
+    } else if (flush_b > flush_a) {
+      return "b";
+    }
+  }
+  return "c";
+}
+
+
+function compare_straight (a, b) {
+  var hi_a = a["straight_hi"];
+  var hi_b = b["straight_hi"];
+  if (hi_a > hi_b) {
+    return "a";
+  } else if (hi_b > hi_a) {
+    return "b";
+  } else {
+    return "c";
+  }
+}
+
+
+
+function compare_three_of_a_kind (a, b) {
+  var rank_a = a["rank"];
+  var rank_b = b["rank"];
+  if (rank_a > rank_b) {
+    return "a";
+  }
+  if (rank_b > rank_a) {
+    return "b";
+  }
+  var kicker_a = a["kicker_1"];
+  var kicker_b = b["kicker_1"];
+  if (kicker_a > kicker_b) {
+    return "a";
+  }
+  if (kicker_b > kicker_a) {
+    return "b";
+  }
+  kicker_a = a["kicker_2"];
+  kicker_b = b["kicker_2"];
+  if (kicker_a > kicker_b) {
+    return "a";
+  }
+  if (kicker_b > kicker_a) {
+    return "b";
+  }
+  return "c";
+}
+
+
+function compare_two_pair (a, b) {
+  var rank_a = a["rank_1"];
+  var rank_b = b["rank_1"];
+  if (rank_a > rank_b) {
+    return "a";
+  }
+  if (rank_b > rank_a) {
+    return "b";
+  }
+  rank_a = a["rank_2"];
+  rank_b = b["rank_2"];
+  if (rank_a > rank_b) {
+    return "a";
+  }
+  if (rank_b > rank_a) {
+    return "b";
+  }
+  var kicker_a = a["kicker"];
+  var kicker_b = b["kicker"];
+  if (kicker_a > kicker_b) {
+    return "a";
+  }
+  if (kicker_b > kicker_a) {
+    return "b";
+  }
+  return "c";
+}
+
+
 function compare_one_pair (a, b) {
   var rank_a = a["rank"];
   var rank_b = b["rank"];
@@ -637,31 +675,6 @@ function compare_one_pair (a, b) {
   return "c";
 }
 
-function is_hi_card (player) {
-  var i;
-  var my_cards = group_cards(player);
-  var working_cards = new Array(my_cards.length);
-  for (i = 0; i < working_cards.length; i++) {
-    working_cards[i] = get_rank(my_cards[i]);
-  }
-  for (i = 0; i < working_cards.length; i++) {
-    if (working_cards[i] == null) {
-      working_cards[i] = -1; // FF
-    }
-  }
-  working_cards.sort(compNum);
-  var hash_result = {};
-  for (i = 0; i < 5; i++) {
-    if (!working_cards[i]) {
-      working_cards[i] = "";
-    }
-    hash_result["hi_card_" + i] = working_cards[i];
-  }
-  hash_result["num_needed"] = 0;
-  hash_result["hand_name"] = "High Card";
-
-  return hash_result;
-}
 
 function compare_hi_card (a, b) {
   for (var i = 0; i < 5; i++) {
@@ -673,16 +686,39 @@ function compare_hi_card (a, b) {
   return "c";
 }
 
+// GUI HELPERS
 function get_suit (card) {
   if (card) {
-    return card.substring(0, 1);
+    console.log("suit");
+    console.log(card);
+    console.log(card.substring(1));
+    return card.substring(1);
   }
   return "";
 }
 
 function get_rank (card) {
   if (card) {
-    return card.substring(1) - 0;
+    console.log("rank");
+    console.log(card);
+    console.log(card.substring(0, 1));
+    var x = card.substring(0, 1);
+    if (x == "J"){
+      return 11;
+    }
+    else if (x == "Q"){
+      return 12;
+    }
+    else if (x == "K"){
+      return 13;
+    }
+    else if (x == "A"){
+      return 14;
+    }
+    else if (x == "0"){
+      return 10;
+    }
+    return x;
   }
   return "";
 }
@@ -691,19 +727,19 @@ function get_predominant_suit (my_cards) {
   var suit_count = [0, 0, 0, 0];
   for (var i = 0; i < my_cards.length; i++) {
     var s = get_suit(my_cards[i]);
-    if (s == "c") suit_count[0]++;
-    else if (s == "s") suit_count[1]++;
-    else if (s == "h") suit_count[2]++;
-    else if (s == "d") suit_count[3]++;
+    if (s == "C") suit_count[0]++;
+    else if (s == "S") suit_count[1]++;
+    else if (s == "H") suit_count[2]++;
+    else if (s == "D") suit_count[3]++;
   }
   var suit_index = 0;
   if (suit_count[1] > suit_count[suit_index]) suit_index = 1;
   if (suit_count[2] > suit_count[suit_index]) suit_index = 2;
   if (suit_count[3] > suit_count[suit_index]) suit_index = 3;
-  if (suit_index == 0) return "c";
-  if (suit_index == 1) return "s";
-  if (suit_index == 2) return "h";
-  if (suit_index == 3) return "d";
+  if (suit_index == 0) return "C";
+  if (suit_index == 1) return "S";
+  if (suit_index == 2) return "H";
+  if (suit_index == 3) return "D";
   return "";
 }
 

@@ -1,6 +1,8 @@
-function get_a_class_named (curr, searched_name) {
+ 
+
+function internal_get_a_class_named (curr, searched_name) {
   if (!curr) {
-    log_to_history("get_a_class_named, no curr for " + searched_name);
+    log_to_history("internal_get_a_class_named, no curr for " + searched_name);
   }
   var notes = null;
   for (var i = 0; i < curr.childNodes.length; i++) {
@@ -12,27 +14,27 @@ function get_a_class_named (curr, searched_name) {
   return notes;
 }
 
-function convertRanking (rank) {
-  if (rank == 14) {
+function internal_FixTheRanking (rank) {
+  if (rank == "A") {
     rank = 'ace';
-  } else if (rank == 13) {
+  } else if (rank == "K") {
     rank = 'king';
-  } else if (rank == 12) {
+  } else if (rank == "Q") {
     rank = 'queen';
-  } else if (rank == 11) {
+  } else if (rank == "J") {
     rank = 'jack';
   }
   return rank;
 }
 
-function convertSuiting (suit) {
-  if (suit == 'c') {
+function internal_FixTheSuiting (suit) {
+  if (suit == 'C') {
     suit = 'clubs';
-  } else if (suit == 'd') {
+  } else if (suit == 'D') {
     suit = 'diamonds';
-  } else if (suit == 'h') {
+  } else if (suit == 'H') {
     suit = 'hearts';
-  } else if (suit == 's') {
+  } else if (suit == 'S') {
     suit = 'spades';
   } else {
     alert('Unknown suit ' + suit);
@@ -41,35 +43,29 @@ function convertSuiting (suit) {
   return suit;
 }
 
-
-function GetCardImageUrl (card) {
-  var suit = card.substring(0, 1);
-  var rank = card.substring(1);
-  rank = convertRanking(rank); 
-  suit = convertSuiting(suit); 
-
-  return "url('static/images/" + rank + '_of_' + suit + ".png')";
+function internal_GetCardImageUrl (card) {
+  return "url(https://deckofcardsapi.com/static/img/" + card + ".png)";
 }
 
-function setBackground (diva, image) {
+function internal_setBackground (diva, image) {
   var komage = diva.style;
   komage['background-image'] = image;
 }
 
-function setCard (diva, card) {
+function internal_setCard (diva, card) {
   var image;
   if (typeof card == 'undefined' || card == "") {
-    image = "url('static/images/outline.gif')";
+    image = "url('static/images/outline.png')";
   } else if (card == "blinded") {
     image = "url('static/images/cardback.png')";
   } else {
-    image = GetCardImageUrl(card);
+    image = internal_GetCardImageUrl(card);
   }
 
-  setBackground(diva, image);
+  internal_setBackground(diva, image);
 }
 
-function clickin_helper (button, button_text, func_on_click) {
+function internal_clickin_helper (button, button_text, func_on_click) {
   if (button_text == 0) {
     button.style.visibility = 'hidden';
   } else {
@@ -78,7 +74,9 @@ function clickin_helper (button, button_text, func_on_click) {
     button.onclick = func_on_click;
   }
 }
-// GUI
+
+//GUI
+
 function hide_poker_table () {
   var table = document.getElementById('poker_table');
   table.style.visibility = 'hidden';
@@ -93,8 +91,8 @@ function set_player_name (name, seat) {
   var table = document.getElementById('poker_table');
   var current = 'seat' + seat;
   var seatloc = table.children[current];
-  var chipsdiv = get_a_class_named(seatloc, 'name-chips');
-  var namediv = get_a_class_named(chipsdiv, 'player-name');
+  var chipsdiv = internal_get_a_class_named(seatloc, 'name-chips');
+  var namediv = internal_get_a_class_named(chipsdiv, 'player-name');
   if (name == "") {
     seatloc.style.visibility = 'hidden';
   } else {
@@ -103,35 +101,34 @@ function set_player_name (name, seat) {
   namediv.textContent = name;
 }
 
-function highlight_player (highlight_color, name_color, seat) {
+function hilite_player (hilite_color, name_color, seat) {
   var table = document.getElementById('poker_table');
   var current = 'seat' + seat;
   var seatloc = table.children[current];
-  var chipsdiv = get_a_class_named(seatloc, 'name-chips');
-  var namediv = get_a_class_named(chipsdiv, 'player-name');
+  var chipsdiv = internal_get_a_class_named(seatloc, 'name-chips');
+  //  var chipsdiv = seatloc.getElementById('name-chips');
+  var namediv = internal_get_a_class_named(chipsdiv, 'player-name');
   if (name_color == "") {
     namediv.style.color = chipsdiv.style.color;
   } else {
     namediv.style.color = name_color;
   }
-  if (highlight_color == "") {
+  if (hilite_color == "") {
     namediv.style.backgroundColor = chipsdiv.style.backgroundColor;
   } else {
-    namediv.style.backgroundColor = highlight_color;
+    namediv.style.backgroundColor = hilite_color;
   }
 }
 
-function set_bank (amount, seat) {
+function set_bankroll (amount, seat) {
   var table = document.getElementById('poker_table');
   var current = 'seat' + seat;
   var seatloc = table.children[current];
-  var chipsdiv = get_a_class_named(seatloc, 'name-chips');
-  var namediv = get_a_class_named(chipsdiv, 'chips');
+  var chipsdiv = internal_get_a_class_named(seatloc, 'name-chips');
+  //  var chipsdiv = seatloc.getElementById('name-chips');
+  var namediv = internal_get_a_class_named(chipsdiv, 'chips');
   if (!isNaN(amount) && amount != "") {
     amount = "$" + amount;
-  }
-  else{
-    amount - "$0"; 
   }
   namediv.textContent = amount;
 }
@@ -140,25 +137,32 @@ function set_bet (bet, seat) {
   var table = document.getElementById('poker_table');
   var current = 'seat' + seat;
   var seatloc = table.children[current];
-  var betdiv = get_a_class_named(seatloc, 'bet');
+  var betdiv = internal_get_a_class_named(seatloc, 'bet');
 
   betdiv.textContent = bet;
 }
 
 function set_player_cards (card_a, card_b, seat) {
+  //console.log("SETTING CARDS");
+  //console.log(card_a);
+  //console.log(card_b);
   var table = document.getElementById('poker_table');
   var current = 'seat' + seat;
   var seatloc = table.children[current];
-  var cardsdiv = get_a_class_named(seatloc, 'holecards');
-  var card1 = get_a_class_named(cardsdiv, 'card holecard1');
-  var card2 = get_a_class_named(cardsdiv, 'card holecard2');
+  var cardsdiv = internal_get_a_class_named(seatloc, 'holecards');
+  var card1 = internal_get_a_class_named(cardsdiv, 'card holecard1');
+  var card2 = internal_get_a_class_named(cardsdiv, 'card holecard2');
 
-  setCard(card1, card_a);
-  setCard(card2, card_b);
+  internal_setCard(card1, card_a);
+  internal_setCard(card2, card_b);
 }
 
 function lay_board_card (n, the_card) {
+  // Write the card no 'n'
+  // the_card = "c9";
+
   var current = '';
+
   if (n == 0) {
     current = 'flop1';
   } else if (n == 1) {
@@ -175,7 +179,7 @@ function lay_board_card (n, the_card) {
   var seatloc = table.children.board;
 
   var cardsdiv = seatloc.children[current];
-  setCard(cardsdiv, the_card);
+  internal_setCard(cardsdiv, the_card);
 }
 
 function write_basic_general (pot_size) {
@@ -217,11 +221,12 @@ function log_to_history (text_to_write) {
 
 function hide_log_window () {
   var history = document.getElementById('history');
+  //  history.style.visibility = 'hidden';
   history.style.display = 'none';
 }
 
 function place_dealer_button (seat) {
-  var table_seat = seat;
+  var table_seat = seat; // interface start at 1
   var button = document.getElementById('button');
   if (seat < 0) {
     button.style.visibility = 'hidden';
@@ -238,26 +243,27 @@ function hide_dealer_button () {
 function hide_fold_call_raise_click () {
   var buttons = document.getElementById('action-options');
   var fold = buttons.children['fold-button'];
-  clickin_helper(fold, 0, 0);
+  internal_clickin_helper(fold, 0, 0);
 
   var call = buttons.children['call-button'];
-  clickin_helper(call, 0, 0);
+  internal_clickin_helper(call, 0, 0);
 
   var raise = buttons.children['raise-button'];
-  clickin_helper(raise, 0, 0);
+  internal_clickin_helper(raise, 0, 0);
 }
 
 function setup_fold_call_raise_click (show_fold, call_text, raise_text,
   fold_func, call_func, raise_func) {
+  // Here we have a coupling of the funtions 'human_fold', 'human_call' and 'human_raise'
   var buttons = document.getElementById('action-options');
   var fold = buttons.children['fold-button'];
-  clickin_helper(fold, show_fold, fold_func);
+  internal_clickin_helper(fold, show_fold, fold_func);
 
   var call = buttons.children['call-button'];
-  clickin_helper(call, call_text, call_func);
+  internal_clickin_helper(call, call_text, call_func);
 
   var raise = buttons.children['raise-button'];
-  clickin_helper(raise, raise_text, raise_func);
+  internal_clickin_helper(raise, raise_text, raise_func);
 }
 
 function curry_in_speedfunction (speed_func) {
@@ -276,35 +282,7 @@ function curry_in_speedfunction (speed_func) {
   return ret_func;
 }
 
-function set_selected_speed_option (index) {
-  var buttons = document.getElementById('setup-options');
-  var speed = buttons.children['speed-button'];
-  var selector = speed.children['speed-selector'];
-  var qqq = selector.children['speed-options'];
-  qqq.value = index;
-}
 
-function le_button (buttons, button_name, button_func) {
-  var le_button = buttons.children[button_name];
-  le_button.style.visibility = 'visible';
-  le_button.onclick = button_func;
-}
-
-
-
-function hide_le_button (buttons, button_name, button_func) {
-  var le_button = buttons.children[button_name];
-  le_button.style.visibility = 'hidden';
-}
-
-function hide_setup_option_buttons (name_func, speed_func, help_func, check_func) {
-  var buttons = document.getElementById('setup-options');
-
-  hide_le_button(buttons, 'name-button');
-  hide_le_button(buttons, 'speed-button');
-  hide_le_button(buttons, 'help-button');
-  hide_le_button(buttons, 'check-button');
-}
 
 function hide_game_response () {
   var response = document.getElementById('game-response');
@@ -346,9 +324,10 @@ function write_modal_box (text) {
 }
 
 function initialize_css () {
+  // Set all the backgrounds
   var image;
   var item;
   item = document.getElementById('poker_table');
   image = "url('static/images/poker_table.png')";
-  setBackground(item, image);
+  internal_setBackground(item, image);
 }
