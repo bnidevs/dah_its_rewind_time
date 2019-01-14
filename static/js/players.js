@@ -18,7 +18,7 @@ function leave_pseudo_alert () {
 }
 
 function my_pseudo_alert (text) {
-  var html = "<html><body topmargin=2 bottommargin=0 bgcolor=" +
+  var html = "<html><br><br><br><body topmargin=2 bottommargin=0 bgcolor=" +
              BG_HILITE + " onload='document.f.y.focus();'>" +
              "<font size=+2>" + text +
              "</font><form name=f><input name=y type=button value='  OK  ' onclick='parent.leave_pseudo_alert()'></form></body></html>";
