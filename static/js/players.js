@@ -937,30 +937,3 @@ function confirm_quit () {
     close();
   }
 }
-
-function compRan () {
-  return 0.5 - Math.random();
-}
-
-function my_local_subtime (invalue, fractionizer) {
-  var quotient = 0;
-  var remainder = invalue;
-  if (invalue > fractionizer) {
-    quotient = Math.floor(invalue / fractionizer);
-    remainder = invalue - quotient * fractionizer;
-  }
-  return [quotient, remainder];
-}
-
-function getTimeText (string, number, text) {
-  if (number == 0) return string;
-  if (string.length > 0) {
-    string += " ";
-  }
-  if (number == 1) {
-    string = string + "1 " + text;
-  } else {
-    string = string + number + " " + text + "s";
-  }
-  return string;
-}
