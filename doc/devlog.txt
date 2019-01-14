@@ -93,7 +93,11 @@ exist, not enough testing.
 
 ==============================================================
 
+robinH -- 02:05 011419
+--------------------------------------------------------------
+Fixed bugs regarding the game freezing from playing with 1 or 2 bots and fixed NaN errors from bots going all in. Restructered code to make more organized.
 
+==============================================================
 fristL -- TIMESTAMP
 --------------------------------------------------------------
 <Thing fristL did.>
