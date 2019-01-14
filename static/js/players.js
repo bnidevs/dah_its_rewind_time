@@ -937,3 +937,6 @@ function confirm_quit () {
     close();
   }
 }
+function compRan () {
+  return 0.5 - Math.random();
+}
