@@ -23,17 +23,11 @@
   <body>
         <div class="container bg-white rounded">
           <div class="container">
-            <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark flex-row">
+            <nav class="navbar fixed-top navbar-dark bg-dark flex-row">
               <!-- The navbar present at the top of our demo page -->
-                 <a class="navbar-brand text-info" href="/"><b>New York Hold'em</b></a>
-                 <!-- JavaScript is needed for the toggle to function properly in a tiny window where nav-items cannot be seen -->
-                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                      <span class="navbar-toggler-icon"></span>
-                      <!-- Stuff can be done here!!! Add smaller versions of the navbar in here as a drop down, since we cannot use JS-->
-                 </button>
-                      {% block login %}
-                      {% endblock %}
-                  </div>
+                <a class="navbar-brand text-info" href="/"><b>New York Hold'em</b></a>
+                {% block login %}
+                {% endblock %}
             </nav>
           </div>
         <br><br><br>

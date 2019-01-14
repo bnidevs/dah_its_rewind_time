@@ -2,13 +2,13 @@
 <!-- feature allowing for login and logout-->
 {% extends "template.html" %}
 {% block login %}
-<div class="navbar-collapse collapse d-flex flex-row-reverse" id="navbarSupportedContent">
 {% if not logged_in %} 
-    <form id="navbarSupportedContent" class="form-inline ml-3 my-2 my-lg-0" action="/authenticate" method="POST">
-           <a class="btn btn-outline-info ml-2" href="/register">Register</a>
+    <form class="form-inline my-2 my-lg-0" action="/register">
+           <button class="form-control btn btn-outline-info my-2 my-sm-0" type="submit">Register</a>
     </form>
 {% endif %}
 {% if logged_in %}
+<div class="collapse d-flex flex-row-reverse" id="navbarSupportedContent">
 <!-- Log Out -->
   <form class="form-inline my-2 my-lg-0" action="/logout">
     <input type="hidden" name="address" value="{{request.full_path}}">
@@ -21,13 +21,10 @@
     </form>
   </div>
 
-  <div style="color: #22AAA1;">
+  <div style="color: #22AAA1;padding-top: 6px">
     {{ username }}
   </div>
 </div>
 
-{% endif %}
-{% if not logged_in %}
-</div>
 {% endif %}
 {% endblock %}
