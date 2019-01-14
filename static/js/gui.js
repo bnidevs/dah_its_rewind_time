@@ -125,7 +125,6 @@ function set_bankroll (amount, seat) {
   var current = 'seat' + seat;
   var seatloc = table.children[current];
   var chipsdiv = internal_get_a_class_named(seatloc, 'name-chips');
-  //  var chipsdiv = seatloc.getElementById('name-chips');
   var namediv = internal_get_a_class_named(chipsdiv, 'chips');
   if (!isNaN(amount) && amount != "") {
     amount = "$" + amount;
@@ -221,7 +220,6 @@ function log_to_history (text_to_write) {
 
 function hide_log_window () {
   var history = document.getElementById('history');
-  //  history.style.visibility = 'hidden';
   history.style.display = 'none';
 }
 
@@ -254,14 +252,11 @@ function hide_fold_call_raise_click () {
 
 function setup_fold_call_raise_click (show_fold, call_text, raise_text,
   fold_func, call_func, raise_func) {
-  // Here we have a coupling of the funtions 'human_fold', 'human_call' and 'human_raise'
   var buttons = document.getElementById('action-options');
   var fold = buttons.children['fold-button'];
   internal_clickin_helper(fold, show_fold, fold_func);
-
   var call = buttons.children['call-button'];
   internal_clickin_helper(call, call_text, call_func);
-
   var raise = buttons.children['raise-button'];
   internal_clickin_helper(raise, raise_text, raise_func);
 }
@@ -324,7 +319,6 @@ function write_modal_box (text) {
 }
 
 function initialize_css () {
-  // Set all the backgrounds
   var image;
   var item;
   item = document.getElementById('poker_table');
