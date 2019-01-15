@@ -22,9 +22,9 @@ Team Members: [Robin Han](https://github.com/robinhanstuy), [Simon Tsui](https:/
  - Flask
  
    Install using:
-   '''
+   ```
    pip3 install -r requirements.txt
-   '''
+   ```
  
  - Python Libaries
    - os
