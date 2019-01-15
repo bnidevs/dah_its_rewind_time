@@ -17,3 +17,16 @@ Team Members: [Robin Han](https://github.com/robinhanstuy), [Simon Tsui](https:/
    - No need for API key
    - [411 on API](https://docs.google.com/document/d/1K6CX_47vSvS9FYlEok4eUyIEeN3_qZ3DGXmai0bZm5o/edit?usp=sharing)
      - Provides us a deck of cards that we can draw and deal from to the game
+
+### Package Usage
+ - Flask
+ 
+   Install using:
+   '''
+   pip3 install -r requirements.txt
+   '''
+ 
+ - Python Libaries
+   - os
+   - random
+   - ssl
