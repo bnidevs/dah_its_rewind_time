@@ -23,10 +23,17 @@ Team Members: [Robin Han](https://github.com/robinhanstuy), [Simon Tsui](https:/
  
    Install using:
    ```
-   pip3 install -r requirements.txt
+   pip install -r requirements.txt
    ```
+   in python3 virtual environment
  
  - Python Libaries
    - os
    - random
    - ssl
+
+### Launch
+ - Within python3 virtual environment:
+   ```
+   python app.py
+   ```
