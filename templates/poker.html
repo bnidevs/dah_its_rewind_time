@@ -1,7 +1,7 @@
 {% extends "templateLog.html" %}
 {% block title %} Home - New York Hold'em {% endblock %}
 {% block content %}
-<body onload="parent.init()">
+<body onload="parent.init('{{bank}}')">
     <div  class="container">
         <div class="col-md-2">
         <div id="poker_table" class="poker-table" data-uid="">

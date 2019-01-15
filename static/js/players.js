@@ -1,7 +1,7 @@
 var NUM_ROUNDS;
 var STOP_AUTOPLAY = 0;
 var RUN_EM = 0;
-var STARTING_BANKROLL = 500;
+var STARTING_BANKROLL;
 var SMALL_BLIND;
 var BIG_BLIND;
 var BG_HILITE = 'gold';
@@ -35,7 +35,8 @@ function player (name, bankroll, carda, cardb, status, total_bet, subtotal_bet) 
   this.subtotal_bet = subtotal_bet;
 }
 
-function init () {
+function init (bankroll) {
+  STARTING_BANKROLL = parseInt(bankroll,10);
   hide_poker_table();
   hide_log_window();
   hide_fold_call_raise_click();
@@ -45,6 +46,26 @@ function init () {
   make_deck();
   new_game();
 }
+/*
+function write(text){
+  var file = IO.getFile("../static/log.txt", "history.txt");
+  var stream = IO.newOutputStream(file, "text");
+  stream.writeString(text);
+  stream.close();
+}
+*/
+/*
+function write(text){
+  const fs = require('fs');
+  fs.writeFile("history.txt",text(err) => {  
+    // throws an error, you could also catch it here
+    if (err) throw err;
+
+    // success case, the file was saved
+    console.log('Lyric saved!');
+});
+}
+*/
 
 function make_deck(){
   //console.log("imhere");
@@ -54,6 +75,7 @@ function make_deck(){
     var data = JSON.parse(this.response);
     deckid = data["deck_id"];
     generate_cards(deckid);
+    //write("Testing");
     //console.log(deckid);
   }
   request.send();
@@ -109,6 +131,7 @@ function clear_player_cards () {
 function new_game () {
   NUM_ROUNDS = 0;
   HUMAN_WINS_AGAIN = 0;
+  returnChips();
   clear_player_cards();
   ask_how_many_opponents();
 }
@@ -159,6 +182,8 @@ function new_round () {
     var html = "<html><br><br><br><body topmargin=2 bottommargin=0 bgcolor=" +
                BG_HILITE + " onload='document.f.y.focus();'>" +
                "<font size=+2>Play again?</font><form name=f><input name=y type=button value='  Yes  ' onclick='parent.new_game()'><input type=button value='  No  ' onclick='parent.confirm_quit()'></form></body></html>";
+    console.log(players[0].bankroll)
+    returnChips(players[0].bankroll);
     write_modal_box(html);
     return;
   }
@@ -519,6 +544,7 @@ function handle_end_of_round () {
     hilite_a = "";
     hilite_b = " name=c";
   }
+  // continue game
   var the_buttons = "<input" + hilite_a + " type=button value='Continue Game' onclick='parent.new_round()'><input" + hilite_b + " type=button value='Restart Game' onclick='parent.confirm_new()'>";
   if (players[0].status == "BUST" && !human_loses) {
     the_buttons = "<input name=c type=button value='Restart Game' onclick='parent.STOP_AUTOPLAY=1'>";
@@ -551,10 +577,22 @@ function handle_end_of_round () {
       } else {
         end_msg += "\n\nSorry you lost.";
       }
+      returnChips(players[0].bankroll);
       my_pseudo_alert(end_msg);
     }
   }
 }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function returnChips(input){
+        var f = $.ajax({
+            type: "POST",
+            url: "/playagain",
+            async: false,
+            data: { mydata: input }
+        });
+
+        return f.responseText;
+    }
 
 function autoplay_new_round () {
   if (STOP_AUTOPLAY > 0) {

@@ -18,6 +18,7 @@ app.secret_key = os.urandom(32)
 
 # manage cookies and user data here
 user = None
+chip = "global"
 
 def setUser(userName):
     global user
@@ -39,9 +40,19 @@ def register():
 @app.route('/play')
 def newgame():
     if user in session:
-        return render_template('poker.html',username = user, logged_in=True)
+        database.changechips(user,database.fetchchips(user) -500 )
+        return render_template('poker.html', bank = 500, username = user, logged_in=True)
     return render_template('index.html', username = "", errors = True, logged_in = False)
 
+@app.route('/playagain', methods=['GET', 'POST'])
+def newgame2():
+    winnings = 0;
+    if request.method == 'POST':
+        winnings = int(request.form['mydata'])
+        database.changechips(user,database.fetchchips(user) + winnings)
+        print(database.fetchchips(user) + winnings)
+        return ""
+        
 @app.route('/login', methods=['POST'])
 def login():
     if user in session:

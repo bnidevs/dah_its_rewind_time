@@ -689,9 +689,6 @@ function compare_hi_card (a, b) {
 // GUI HELPERS
 function get_suit (card) {
   if (card) {
-    console.log("suit");
-    console.log(card);
-    console.log(card.substring(1));
     return card.substring(1);
   }
   return "";
@@ -699,9 +696,6 @@ function get_suit (card) {
 
 function get_rank (card) {
   if (card) {
-    console.log("rank");
-    console.log(card);
-    console.log(card.substring(0, 1));
     var x = card.substring(0, 1);
     if (x == "J"){
       return 11;
