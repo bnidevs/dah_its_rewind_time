@@ -11,3 +11,9 @@ Team Members: [Robin Han](https://github.com/robinhanstuy), [Simon Tsui](https:/
 
 
 [Game Instructions](https://www.cardplayer.com/rules-of-poker/how-to-play-poker/games/texas-holdem)
+
+### API Usage
+ - [Deck of Cards API](https://deckofcardsapi.com/)
+   - No need for API key
+   - [411 on API](https://docs.google.com/document/d/1K6CX_47vSvS9FYlEok4eUyIEeN3_qZ3DGXmai0bZm5o/edit?usp=sharing)
+     - Provides us a deck of cards that we can draw and deal from to the game
