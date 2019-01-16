@@ -4,7 +4,7 @@ var RUN_EM = 0;
 var STARTING_BANKROLL;
 var SMALL_BLIND;
 var BIG_BLIND;
-var BG_HILITE = 'gold';
+var BG_HILITE = '#ffc107';
 var global_speed = 1;
 var HUMAN_WINS_AGAIN;
 var HUMAN_GOES_ALL_IN;

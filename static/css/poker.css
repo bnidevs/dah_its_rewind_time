@@ -20,7 +20,7 @@
 }
 
 .name-chips {
-    background-color: green;
+    background-color: #1b91a9;
     border-radius: 2px;
     color: white;
     font-size: 14px;
@@ -241,22 +241,20 @@
 }
 
 .action-button {
-    background-color: silver;
-    border-radius: 2px;
+    background-color: #1b91a9;
+    border-radius: 4px;
     color: white;
     cursor: pointer;
     font-size: 18px;
-    height: 30px;
-    left: 0px;
+    height: 50px;
     padding: 10px 5px 0 5px;
     position: absolute;
-    top: 0px;
 }
 
 
 select {
-    background-color: silver;
-    background: silver;
+    background-color: #1b91a9;
+    background: #1b91a9;
     border-radius: 1px;
     border: none;
     left: 60px;
@@ -291,7 +289,7 @@ select {
     position: absolute;
     text-align: center;
     top: 5px;
-    width: 600px;
+    width: 300px;
 }
 
 .response-normal {
@@ -312,9 +310,10 @@ select {
 }
 
 #quick-raises {
-    background-color: silver;
+    background-color: #1b91a9;
+    border-radius: 4px;
     font-size: 12px;
-    height: 75px;
+    height: 50px;
     left: 50px;
     position: absolute;
     text-align: center;
