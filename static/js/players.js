@@ -103,7 +103,7 @@ function handle_how_many_reply (opponents) {
 
 function ask_how_many_opponents () {
   var quick_values = [1, 2, 3, 4, 5, 6, 7];
-  var asking = "<b><br><br><br><font size=+4 color=FF0000>So, how many opponents do you want?</font></b><br>";
+  var asking = "<b><br><br><br><font size=+4 color=2F6690>So, how many opponents do you want?</font></b><br>";
   for (var i = 0; i < 7; i++) {
     if (quick_values[i]) {
       asking += "<font size=+4><a href='javascript:parent.handle_how_many_reply(" + quick_values[i] + ")'>" + quick_values[i] + " </a></font>" + "&nbsp;&nbsp;&nbsp;";
