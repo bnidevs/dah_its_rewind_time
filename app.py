@@ -43,7 +43,7 @@ def register():
     if user in session:
         return redirect(url_for('home'))
     return render_template('register.html',username = "", logged_in=False)
-	
+
 @app.route('/play')
 def newgame():
     '''
@@ -101,11 +101,8 @@ def authenticate():
         if username != "" and password != "" and database.loginuser(username, password):
             session[username] = password
             setUser(username)
-            flash('Successfully logged in!')
             return redirect(curr_page)
-        else:
-            flash('Incorrect credentials!')
-        return redirect(curr_page)
+        return render_template("index.html", username = "", errors = True, alerts=["Incorrect Credentials"], logged_in = False)
     # REGISTERING
     else:
         if len(username.strip()) != 0 and not database.checkuser(username):
