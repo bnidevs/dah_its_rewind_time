@@ -74,8 +74,8 @@ def addpastmatch(user, match):
     db = initdb()
     c = db.cursor()
 
-    c.execute("SELECT match_history WHERE name = ?", (user, ))
-    match_history = c.fetchone()
+    c.execute("SELECT match_history FROM users WHERE name = ?", (user, ))
+    match_history = c.fetchone()[0]
     if match_history == None or match_history == "":
         c.execute("UPDATE users SET match_history = ? WHERE name = ?", (match, user))
     else:

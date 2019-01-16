@@ -4,6 +4,7 @@
 import os
 import random
 import ssl
+import datetime
 
 ssl._create_default_https_context = ssl._create_unverified_context
 
@@ -40,7 +41,7 @@ def register():
 @app.route('/play')
 def newgame():
     if user in session:
-        return render_template('poker.html', bank = 500, username = user, logged_in=True)
+        return render_template('poker.html', bank = 60, username = user, logged_in=True)
     return render_template('index.html', username = "", errors = True, logged_in = False)
 
 @app.route('/playagain', methods=['GET', 'POST'])
@@ -51,7 +52,15 @@ def newgame2():
         database.changechips(user,database.fetchchips(user) + winnings - 500)
         print(database.fetchchips(user) + winnings)
         return ""
-        
+@app.route('/getrank', methods=['GET', 'POST'])
+def getrank():
+    print("i am here")
+    if request.method == 'POST':
+        place = int(request.form['mydata'])
+        now = datetime.datetime.now()
+        database.addpastmatch(user,database.formatmatchdata(str(database.fetchchips(user)), str(place), now.strftime("%m/%d/%Y %H'%M")))
+        return ""
+
 @app.route('/login', methods=['POST'])
 def login():
     if user in session:

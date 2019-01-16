@@ -514,8 +514,15 @@ function handle_end_of_round () {
     } else {
       if (!has_money(i) && players[i].status != "BUST") {
         players[i].status = "BUST";
-        if (i == 0) {
-          human_loses = 1;
+        if (i == 0) { 
+          var place = 1; 
+          for (var j = 0; j < players.length; j++){ 
+            if (has_money(j)){ 
+              place++; 
+            } 
+          } 
+          returnRank(place); 
+          human_loses = 1; 
         }
       }
       if (players[i].status != "FOLD") {
@@ -573,6 +580,7 @@ function handle_end_of_round () {
     if (num_playing < 2) {
       var end_msg = "GAME OVER!";
       if (has_money(0)) {
+        returnRank(1);
         end_msg += "\n\nYOU WIN " + players[0].name.toUpperCase() + "!!!";
       } else {
         end_msg += "\n\nSorry you lost.";
@@ -593,7 +601,18 @@ function returnChips(input){
 
         return f.responseText;
     }
-
+function returnRank(input){ 
+        console.log("i lost");
+        var f = $.ajax({ 
+            type: "POST", 
+            url: "/getrank", 
+            async: false, 
+            data: { mydata: input } 
+        }); 
+ 
+        return f.responseText; 
+      }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function autoplay_new_round () {
   if (STOP_AUTOPLAY > 0) {
     STOP_AUTOPLAY = 0;
