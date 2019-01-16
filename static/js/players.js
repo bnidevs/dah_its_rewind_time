@@ -57,7 +57,7 @@ function write(text){
 /*
 function write(text){
   const fs = require('fs');
-  fs.writeFile("history.txt",text(err) => {  
+  fs.writeFile("history.txt",text(err) => {
     // throws an error, you could also catch it here
     if (err) throw err;
 
@@ -185,7 +185,7 @@ function new_round () {
     //var html = "<html><br><br><br><body topmargin=2 bottommargin=0 bgcolor=" +
     //           BG_HILITE + " onload='document.f.y.focus();'>" +
     //           "<font size=+2>Play again?</font><form name=f><input name=y type=button value='  Yes  ' onclick='parent.new_game()'><input type=button value='  No  ' onclick='parent.confirm_quit()'></form></body></html>";
-    var html = "<input type=button value='  Yes  ' onclick='parent.new_game()'><input type=button value='  No  ' onclick='parent.confirm_quit()'>";
+    var html = "<font size=+2><b>Play again?</b></font> <input type=button value='  Yes  ' onclick='parent.new_game()'><input type=button value='  No  ' onclick='parent.confirm_quit()'>";
     console.log(players[0].bankroll);
     returnChips(players[0].bankroll);
     write_game_response(html);
@@ -518,16 +518,16 @@ function handle_end_of_round () {
     } else {
       if (!has_money(i) && players[i].status != "BUST") {
         players[i].status = "BUST";
-        if (i == 0) { 
-          var place = 1; 
-          for (var j = 0; j < players.length; j++){ 
-            if (has_money(j)){ 
-              place++; 
-            } 
-          } 
+        if (i == 0) {
+          var place = 1;
+          for (var j = 0; j < players.length; j++){
+            if (has_money(j)){
+              place++;
+            }
+          }
           returnChips(players[0].bankroll);
-          returnRank(place); 
-          human_loses = 1; 
+          returnRank(place);
+          human_loses = 1;
         }
       }
       if (players[i].status != "FOLD") {
@@ -574,7 +574,9 @@ function handle_end_of_round () {
 
 
   if (human_loses == 1) {
-    my_pseudo_alert("Sorry, you busted " + players[0].name + ".\n\n");
+    //my_pseudo_alert("Sorry, you busted " + players[0].name + ".\n\n");
+    var html = "<html><body><b>Whoops, you busted ;( )</b><br><input type=button value='Continue Game' onclick='parent.new_round()'><input type=button value='Restart Game' onclick='parent.confirm_new()'></body></html>";
+    write_game_response(html);
   } else {
     var num_playing = 0;
     for (i = 0; i < players.length; i++) {
@@ -607,16 +609,16 @@ function returnChips(input){
 
         return f.responseText;
     }
-function returnRank(input){ 
+function returnRank(input){
         console.log("i lost");
-        var f = $.ajax({ 
-            type: "POST", 
-            url: "/getrank", 
-            async: false, 
-            data: { mydata: input } 
-        }); 
- 
-        return f.responseText; 
+        var f = $.ajax({
+            type: "POST",
+            url: "/getrank",
+            async: false,
+            data: { mydata: input }
+        });
+
+        return f.responseText;
       }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function autoplay_new_round () {
