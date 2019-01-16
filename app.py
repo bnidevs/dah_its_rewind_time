@@ -28,32 +28,48 @@ def setUser(userName):
 
 @app.route('/')
 def home():
+    '''
+    Generates mainpage. Passes user info.
+    '''
     if user in session:
         return render_template('login.html', username = user, alerts=[], errors = True, logged_in = True, game=database.readcurrmatch(user))
     return render_template('index.html', username = "", errors = True, logged_in = False)
 
 @app.route('/register')
 def register():
+    '''
+    Generates register page after pressing register. Checks session.
+    '''
     if user in session:
         return redirect(url_for('home'))
     return render_template('register.html',username = "", logged_in=False)
 	
 @app.route('/play')
 def newgame():
+    '''
+    Brings up the game's html after starting/continuing game. Checks session.
+    '''
     if user in session:
         return render_template('poker.html', bank = 500, username = user, logged_in=True)
     return render_template('index.html', username = "", errors = True, logged_in = False)
 
 @app.route('/playagain', methods=['GET', 'POST'])
 def newgame2():
+    '''
+    Short circuits restarting the game.
+    '''
     winnings = 0;
     if request.method == 'POST':
         winnings = int(request.form['mydata'])
         database.changechips(user,database.fetchchips(user) + winnings - 500)
         print(database.fetchchips(user) + winnings)
         return ""
+
 @app.route('/getrank', methods=['GET', 'POST'])
 def getrank():
+    '''
+    Passes rank for database/match history purposes.
+    '''
     print("i am here")
     if request.method == 'POST':
         place = int(request.form['mydata'])
@@ -63,12 +79,18 @@ def getrank():
 
 @app.route('/login', methods=['POST'])
 def login():
+    '''
+    Generates login page after successfully entering correct credentials. Checks session.
+    '''
     if user in session:
         return redirect(url_for('home'))
     return render_template('login.html',username = "", alerts=[], logged_in=False, game=database.readcurrmatch(user))
 
 @app.route('/authenticate', methods=['POST'])
 def authenticate():
+    '''
+    Checks user and pass. Makes login and register work. Checks session.
+    '''
     if user in session:
         return redirect(url_for('home'))
     # instantiates DB_Manager with path to DB_FILE
@@ -122,6 +144,9 @@ def logout():
 
 @app.route('/profile')
 def profile():
+    '''
+    Generates profile page after pressing profile button. Checks session.
+    '''
     if user in session:
         chips = database.fetchchips(user)
         return render_template('profile.html', username = user, numchips=chips, matches=database.getpastmatches(user), logged_in = True)
@@ -129,12 +154,18 @@ def profile():
 
 @app.route('/changepass')
 def changepass():
+    '''
+    Generates change password page as an option from the profile page. Checks session.
+    '''
     if user in session:
         return render_template('changepass.html', username=user, alerts=[], logged_in = True)
     return render_template('index.html', username = "", errors = True, logged_in = False)
 
 @app.route('/updatepass', methods=["POST"])
 def updatepass():
+    '''
+    Communicates with database to change password.
+    '''
     if user in session:
         passeq = (request.form["pass"] == request.form["verpass"])
         passdiff = (request.form["pass"] != database.getpassword(user))
@@ -152,6 +183,9 @@ def updatepass():
 
 @app.route('/clearcurrmatch')
 def clearmatchinprogress():
+    '''
+    Clears match in progress. Checks session.
+    '''
     if user in session:
         database.clearcurrmatch(user)
         return render_template('profile.html', username = user, numchips=database.fetchchips(user), matches=database.getpastmatches(user), logged_in = True, alerts=["Current Match Cleared"])
