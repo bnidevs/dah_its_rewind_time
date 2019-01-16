@@ -41,7 +41,7 @@ def register():
 @app.route('/play')
 def newgame():
     if user in session:
-        return render_template('poker.html', bank = 60, username = user, logged_in=True)
+        return render_template('poker.html', bank = 500, username = user, logged_in=True)
     return render_template('index.html', username = "", errors = True, logged_in = False)
 
 @app.route('/playagain', methods=['GET', 'POST'])

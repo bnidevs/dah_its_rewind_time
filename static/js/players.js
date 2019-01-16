@@ -179,12 +179,16 @@ function new_round () {
     }
   }
   if (num_playing < 2) {
-    var html = "<html><br><br><br><body topmargin=2 bottommargin=0 bgcolor=" +
-               BG_HILITE + " onload='document.f.y.focus();'>" +
-               "<font size=+2>Play again?</font><form name=f><input name=y type=button value='  Yes  ' onclick='parent.new_game()'><input type=button value='  No  ' onclick='parent.confirm_quit()'></form></body></html>";
-    console.log(players[0].bankroll)
+  //var message = "<tr><td><font size=+2><b>Dealing flop</b></font>";
+  //write_game_response(message);
+ // var the_buttons = "<input" + hilite_a + " type=button value='Continue Game' onclick='parent.new_round()'><input" + hilite_b + " type=button value='Restart Game' onclick='parent.confirm_new()'>";
+    //var html = "<html><br><br><br><body topmargin=2 bottommargin=0 bgcolor=" +
+    //           BG_HILITE + " onload='document.f.y.focus();'>" +
+    //           "<font size=+2>Play again?</font><form name=f><input name=y type=button value='  Yes  ' onclick='parent.new_game()'><input type=button value='  No  ' onclick='parent.confirm_quit()'></form></body></html>";
+    var html = "<input type=button value='  Yes  ' onclick='parent.new_game()'><input type=button value='  No  ' onclick='parent.confirm_quit()'>";
+    console.log(players[0].bankroll);
     returnChips(players[0].bankroll);
-    write_modal_box(html);
+    write_game_response(html);
     return;
   }
   HUMAN_GOES_ALL_IN = 0;
@@ -521,6 +525,7 @@ function handle_end_of_round () {
               place++; 
             } 
           } 
+          returnChips(players[0].bankroll);
           returnRank(place); 
           human_loses = 1; 
         }
@@ -580,12 +585,13 @@ function handle_end_of_round () {
     if (num_playing < 2) {
       var end_msg = "GAME OVER!";
       if (has_money(0)) {
+        returnChips(players[0].bankroll);
         returnRank(1);
         end_msg += "\n\nYOU WIN " + players[0].name.toUpperCase() + "!!!";
       } else {
         end_msg += "\n\nSorry you lost.";
       }
-      returnChips(players[0].bankroll);
+      //returnChips(players[0].bankroll);
       my_pseudo_alert(end_msg);
     }
   }
