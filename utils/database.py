@@ -99,7 +99,7 @@ def getpastmatches(user):
     else:
         match_history = match_history.split(";")
 
-    if match_history[-1] == "" and match_history[0] != "":
+    while match_history[-1] == "":
         match_history = match_history[0:-1]
 
     for i in range(len(match_history)):
