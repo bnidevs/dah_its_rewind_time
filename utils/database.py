@@ -79,7 +79,7 @@ def addpastmatch(user, match):
     if match_history == None or match_history == "":
         c.execute("UPDATE users SET match_history = ? WHERE name = ?", (match, user))
     else:
-        c.execute("UPDATE users SET match_history = ? WHERE name = ?", (match_history + match, user))
+        c.execute("UPDATE users SET match_history = ? WHERE name = ?", (match + match_history, user))
 
     db.commit()
     db.close()
