@@ -22,6 +22,9 @@ user = None
 chip = "global"
 
 def setUser(userName):
+    '''
+    Sets username to be passed to html files.
+    '''
     global user
     user = userName
 
@@ -127,7 +130,7 @@ def authenticate():
 @app.route('/logout')
 def logout():
     '''
-    Logs user out
+    Logs user out. Redirects to homepage.
     '''
     curr_page = request.args['address']
     session.pop(user, None)
