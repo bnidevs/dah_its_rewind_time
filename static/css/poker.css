@@ -238,7 +238,7 @@
     height: 10px;
     left: 441px;
     position: absolute;
-    top: 697px;
+    top: 678px;
     width: 10px;
     z-index:1;
 }
@@ -287,11 +287,11 @@ select {
     border-width: 1px;
     color: black;
     font-size: 12px;
-    height: 350px;
+    height: 342px;
     left: 155%;
     position: absolute;
     text-align: center;
-    bottom: -101%;
+    bottom: -95%;
     width: 526px;
     padding-bottom: 50px;
 }
@@ -321,7 +321,7 @@ select {
     left: 390px;
     position: absolute;
     text-align: center;
-    top: 758px;
+    top: 739px;
     width: 300px;
     z-index:1;
 }
