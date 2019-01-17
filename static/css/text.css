@@ -1,4 +1,4 @@
-/* - for - */
+/*dah_its_rewind_time - Vincent Chi, Robin Han, Bill Ni, Simon Tsui*/
 
 h1 {
     font-family: Garamond, Baskerville, Baskerville Old Face, Hoefler Text, Times New Roman, serif;
@@ -129,4 +129,9 @@ pre {
 }
 .on-white {
     color: #8a8b8c;
+}
+.boxed{
+    border: 1px solid red;
+    border-width: 10px;
+    margin:100px;
 }

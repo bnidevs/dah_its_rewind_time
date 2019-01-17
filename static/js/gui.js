@@ -106,7 +106,6 @@ function hilite_player (hilite_color, name_color, seat) {
   var current = 'seat' + seat;
   var seatloc = table.children[current];
   var chipsdiv = internal_get_a_class_named(seatloc, 'name-chips');
-  //  var chipsdiv = seatloc.getElementById('name-chips');
   var namediv = internal_get_a_class_named(chipsdiv, 'player-name');
   if (name_color == "") {
     namediv.style.color = chipsdiv.style.color;
@@ -157,9 +156,6 @@ function set_player_cards (card_a, card_b, seat) {
 }
 
 function lay_board_card (n, the_card) {
-  // Write the card no 'n'
-  // the_card = "c9";
-
   var current = '';
 
   if (n == 0) {
@@ -224,7 +220,7 @@ function hide_log_window () {
 }
 
 function place_dealer_button (seat) {
-  var table_seat = seat; // interface start at 1
+  var table_seat = seat; 
   var button = document.getElementById('button');
   if (seat < 0) {
     button.style.visibility = 'hidden';

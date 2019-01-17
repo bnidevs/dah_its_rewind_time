@@ -1,3 +1,5 @@
+//dah_its_rewind_time - Vincent Chi, Robin Han, Bill Ni, Simon Tsui
+
 var NUM_ROUNDS;
 var STOP_AUTOPLAY = 0;
 var RUN_EM = 0;
@@ -575,7 +577,8 @@ function handle_end_of_round () {
 
   if (human_loses == 1) {
     //my_pseudo_alert("Sorry, you busted " + players[0].name + ".\n\n");
-    var html = "<html><body><b>Whoops, you busted ;( )</b><br><input type=button value='Continue Game' onclick='parent.new_round()'><input type=button value='Restart Game' onclick='parent.confirm_new()'></body></html>";
+    //"<tr><td><font size=+2><b>Dealing river</b></font>"
+    var html = "<html><body><tr><td><font size=+2><b>Whoops, you busted ;( </b></font><br><input type=button value='Continue Game' onclick='parent.new_round()'><input type=button value='Restart Game' onclick='parent.confirm_new()'></body></html>";
     write_game_response(html);
   } else {
     var num_playing = 0;
@@ -901,7 +904,7 @@ function get_pot_size () {
 }
 
 function get_pot_size_html () {
-  return "<font size=+4><b>TOTAL POT: " + get_pot_size() + "</b></font>";
+  return "<tr><td><font size=+4><b>TOTAL POT: " + get_pot_size() + "</b></font>";
 }
 
 function clear_bets () {

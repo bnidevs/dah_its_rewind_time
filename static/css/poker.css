@@ -24,7 +24,7 @@
 }
 
 .name-chips {
-    background-color: #1b91a9;
+    background-color: #323a40;
     border-radius: 2px;
     color: white;
     font-size: 14px;
@@ -205,7 +205,7 @@
 }
 
 .boardcard {
-    height: 73px;
+    height: 68px;
     left: 0;
     position: absolute;
     top: 0px;
@@ -219,22 +219,22 @@
 
 #flop2 {
     left: 207px;
-    top:-82px;
+    top:-77px;
 }
 
 #flop3 {
     left: 261px;
-    top:-155px;
+    top:-145px;
 }
 
 #turn {
     left: 315px;
-    top:-228px;
+    top:-213px;
 }
 
 #river {
     left: 369px;
-    top:-301px;
+    top:-281px;
 }
 
 #action-options {
@@ -247,7 +247,7 @@
 }
 
 .action-button {
-    background-color: #1b91a9;
+    background-color: #323a40;
     border-radius: 4px;
     color: white;
     cursor: pointer;
@@ -296,6 +296,7 @@ select {
     text-align: center;
     bottom: -88%;
     width: 526px;
+    padding-bottom: 50px;
 }
 
 .response-normal {
@@ -316,7 +317,7 @@ select {
 }
 
 #quick-raises {
-    background-color: #1b91a9;
+    background-color: #323a40;
     border-radius: 4px;
     font-size: 12px;
     height: 50px;
