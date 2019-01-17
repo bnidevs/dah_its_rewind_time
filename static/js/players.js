@@ -394,7 +394,7 @@ function main () {
       }
       quick_bets += "<a href='javascript:parent.handle_human_bet(" + players[0].bankroll + ")'>All In!</a>";
       var html9 = "<td><table align=center><tr><td align=center>";
-      var html10 = quick_bets + "</td></tr></table></td></tr></table></body></html>";
+      var html10 = quick_bets + "</td></tr></table></td></tr></table><br><br><br><br></body></html>";
       write_guick_raise(html9 + html10);
 
       var message = "<tr><td><font size=+2><b>Current raise: " + current_bet +
