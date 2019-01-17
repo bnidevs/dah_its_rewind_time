@@ -35,9 +35,6 @@
     width: 140px;
 }
 
-.player-name {
-    width: 100%;
-}
 
 .card {
     background-image: url('../images/cardback.png');
@@ -238,11 +235,11 @@
 }
 
 #action-options {
-    height: 100px;
-    left: 447px;
+    height: 10px;
+    left: 441px;
     position: absolute;
-    top: 644px;
-    width: 501px;
+    top: 697px;
+    width: 10px;
     z-index:1;
 }
 
@@ -290,11 +287,11 @@ select {
     border-width: 1px;
     color: black;
     font-size: 12px;
-    height: 300px;
+    height: 350px;
     left: 155%;
     position: absolute;
     text-align: center;
-    bottom: -88%;
+    bottom: -101%;
     width: 526px;
     padding-bottom: 50px;
 }
@@ -324,7 +321,7 @@ select {
     left: 390px;
     position: absolute;
     text-align: center;
-    top: 703px;
+    top: 758px;
     width: 300px;
     z-index:1;
 }

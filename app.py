@@ -50,7 +50,9 @@ def newgame():
     Brings up the game's html after starting/continuing game. Checks session.
     '''
     if user in session:
-        return render_template('poker.html', bank = 500, username = user, logged_in=True)
+        if int(database.fetchchips(user)) < 0:
+            return render_template("index.html", username = "", errors = True, alerts=["You have no chips left. Account suspended."], logged_in = False) 
+        return render_template('poker.html', bank = 60, username = user, logged_in=True)
     return render_template('index.html', username = "", errors = True, logged_in = False)
 
 @app.route('/playagain', methods=['GET', 'POST'])
@@ -72,9 +74,9 @@ def getrank():
     '''
     print("i am here")
     if request.method == 'POST':
-        place = int(request.form['mydata'])
+        place = (request.form['mydata'])
         now = datetime.datetime.now()
-        database.addpastmatch(user,database.formatmatchdata(str(database.fetchchips(user)), str(place), now.strftime("%m/%d/%Y %H'%M")))
+        database.addpastmatch(user,database.formatmatchdata(str(database.fetchchips(user)), str(place), now.strftime("%m/%d/%Y   %H'%M")))
         return ""
 
 @app.route('/login', methods=['POST'])

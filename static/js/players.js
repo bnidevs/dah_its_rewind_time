@@ -187,7 +187,7 @@ function new_round () {
     //var html = "<html><br><br><br><body topmargin=2 bottommargin=0 bgcolor=" +
     //           BG_HILITE + " onload='document.f.y.focus();'>" +
     //           "<font size=+2>Play again?</font><form name=f><input name=y type=button value='  Yes  ' onclick='parent.new_game()'><input type=button value='  No  ' onclick='parent.confirm_quit()'></form></body></html>";
-    var html = "<font size=+2><b>Play again?</b></font> <input type=button value='  Yes  ' onclick='parent.new_game()'><input type=button value='  No  ' onclick='parent.confirm_quit()'>";
+    var html = "<font size=+2><b>Play again?</b></font> <input type=button value='  Yes  ' onclick='parent.play_again()'><input type=button value='  No  ' onclick='parent.confirm_quit()'>";
     console.log(players[0].bankroll);
     returnChips(players[0].bankroll);
     write_game_response(html);
@@ -596,8 +596,9 @@ function handle_end_of_round () {
       } else {
         end_msg += "\n\nSorry you lost.";
       }
+      var html = "<html><body><tr><td><font size=+2><b>" + end_msg + "</b> <br><b>Play again?</b></font><br><input type=button value='  Yes  ' onclick='parent.play_again()'><input type=button value='  No  ' onclick='parent.confirm_quit()'></body></html>"
       //returnChips(players[0].bankroll);
-      my_pseudo_alert(end_msg);
+      write_game_response(html);
     }
   }
 }
@@ -995,13 +996,24 @@ function has_money (i) {
 
 function confirm_new () {
   if (confirm("Are you sure that you want to restart the entire game?")) {
-    new_game();
+    //console.log("restart");
+    returnChips(players[0].bankroll);
+    returnRank(-1);
+    handle_how_many_reply(players.length-1);
   }
+}
+function play_again(){
+  handle_how_many_reply(players.length-1);
 }
 
 function confirm_quit () {
   if (confirm("Are you sure that you want to quit?")) {
+    //console.log("restart");
+    new_game()
     close();
+  }
+  else{
+    handle_how_many_reply(players.length-1);
   }
 }
 function compRan () {
