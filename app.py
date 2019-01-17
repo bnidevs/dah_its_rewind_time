@@ -52,7 +52,7 @@ def newgame():
     if user in session:
         if int(database.fetchchips(user)) < 0:
             return render_template("index.html", username = "", errors = True, alerts=["You have no chips left. Account suspended."], logged_in = False) 
-        return render_template('poker.html', bank = 60, username = user, logged_in=True)
+        return render_template('poker.html', bank = 500, username = user, logged_in=True)
     return render_template('index.html', username = "", errors = True, logged_in = False)
 
 @app.route('/playagain', methods=['GET', 'POST'])
