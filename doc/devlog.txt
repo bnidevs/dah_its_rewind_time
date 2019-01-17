@@ -104,6 +104,24 @@ robinH -- 00:59 011519
 Used Ajax to pass data from Javascript to Python. Now, after a game ends the number of chips a player gained or lost is updated to the player's total number of chips which is stored in the database. 
 
 ==============================================================
+
+robinH -- 19:31 011619
+--------------------------------------------------------------
+Reformatted main game in CSS by centering it and moving text box to the bottom of the table. 
+
+==============================================================
+
+robinH -- 23:32 011619
+--------------------------------------------------------------
+Fixed issues such as a new page redirrection when a game is won and fixed formatting for the end game result. Polished more CSS to make the login page and homescreen for logged in user more pleasing to look at.
+
+==============================================================
+
+robinH -- 00:33 011719
+--------------------------------------------------------------
+Made final minor bug fixes and finalized design of the webpages. Changed colors to fit the overall look of our webpage. Should be finalized.
+
+==============================================================
 fristL -- TIMESTAMP
 --------------------------------------------------------------
 <Thing fristL did.>
