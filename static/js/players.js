@@ -743,7 +743,7 @@ function human_raise () {
   var prompt_text = "Minimum raise is " + current_min_raise + ". How much do you raise? DON'T include the " + to_call + " needed to call.";
   if (to_call == 0) prompt_text = "The minimum bet is " + current_min_raise + ". How much you wanna bet?";
   var bet_amount = "";
-  while (!bet_amount || bet_amount == null || bet_amount == "") {
+  while (!bet_amount || bet_amount == null || bet_amount == "" || isNan(bet_amount)) {
     bet_amount = prompt(prompt_text, "");
   }
   handle_human_bet(bet_amount);
