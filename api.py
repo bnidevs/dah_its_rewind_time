@@ -16,7 +16,9 @@ API HELPERS
 '''
 
 def fetchInfo(url):
-    ''' Returns loaded response '''
+    '''
+    Returns loaded response
+    '''
     response = requests.get(url)
     info = response.json()
     return info
@@ -24,6 +26,9 @@ def fetchInfo(url):
 deckID = "blank"
 
 def newDeck():
+    '''
+    Loads new deck and sets it to deck ID
+    '''
     info = fetchInfo("https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1")
     global deckID
     deckID = info['deck_id']
@@ -31,6 +36,9 @@ def newDeck():
 newDeck()
     
 def draw(num):
+    '''
+    Draws from the deck, updates the deck status.
+    '''
     #print(deckID)
     url = "https://deckofcardsapi.com/api/deck/{0}/draw/?count={1}".format(deckID, num)
     #print(url)
