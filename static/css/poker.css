@@ -2,6 +2,10 @@
     background-repeat: no-repeat;
     height: 411px;
     width: 745px;
+    top:50%;
+    left:50%;
+    margin-top:50px;
+    margin-left:150px;
 }
 
 .seat {
@@ -78,12 +82,12 @@
 }
 
 #seat0 {
-    left: 100px;
+    left: 255px;
     top:  340px;
 }
 .seat0-button {
-    left: 225px;
-    top:  410px;
+    left: 368px;
+    top:  413px;
 }
 #seat0 .bet {
     left: 41px;
@@ -91,12 +95,12 @@
 }
 
 #seat1 {
-    left:  0px;
+    left:  158px;
     top: 165px;
 }
 .seat1-button {
-    left: 125px;
-    top:  235px;
+    left: 270px;
+    top:  237px;
 }
 #seat1 .bet {
     left: 50px;
@@ -104,12 +108,12 @@
 }
 
 #seat2 {
-    left: 100px;
+    left: 252px;
     top:   10px;
 }
 .seat2-button {
-    left: 225px;
-    top:   80px;
+    left: 363px;
+    top:   82px;
 }
 #seat2 .bet {
     left: 30px;
@@ -117,13 +121,13 @@
 }
 
 #seat3 {
-    left: 325px;
+    left: 465px;
     top:   10px;
 }
 
 .seat3-button {
-    left: 320px;
-    top:   80px;
+    left: 578px;
+    top:   82px;
 }
 #seat3 .bet {
     left: 30px;
@@ -131,13 +135,13 @@
 }
 
 #seat4 {
-    left: 550px;
+    left: 675px;
     top:   10px;
 }
 
 .seat4-button {
-    left: 540px;
-    top:   80px;
+    left: 788px;
+    top:   82px;
 }
 #seat4 .bet {
     left: 30px;
@@ -145,25 +149,25 @@
 }
 
 #seat5 {
-    left: 650px;
+    left: 764px;
     top:  165px;
 }
 .seat5-button {
-    left: 645px;
-    top:  235px;
+    left: 876px;
+    top:  237px;
 }
 #seat5 .bet {
-    left:  0px;
+    left:  39px;
     top: 100px;
 }
 
 #seat6 {
-    left: 550px;
+    left: 677px;
     top:  340px;
 }
 .seat6-button {
-    left: 540px;
-    top:  410px;
+    left: 790px;
+    top:  412px;
 }
 #seat6 .bet {
     left: 39px;
@@ -171,12 +175,12 @@
 }
 
 #seat7 {
-    left: 325px;
+    left: 469px;
     top:  340px;
 }
 .seat7-button {
-    left: 320px;
-    top:  410px;
+    left: 582px;
+    top:  412px;
 }
 #seat7 .bet {
     left: 41px;
@@ -193,10 +197,11 @@
 #pot {
     color: white;
     font-size: 16px;
-    left: 368px;
+    left: 488px;
     position: absolute;
     text-align: center;
     top: 233px;
+    width:100px;
 }
 
 .boardcard {
@@ -209,35 +214,36 @@
 
 #flop1 {
     top: -9px;
-    left: 9px;
+    left: 152px;
 }
 
 #flop2 {
-    left: 60px;
+    left: 207px;
     top:-82px;
 }
 
 #flop3 {
-    left: 111px;
+    left: 261px;
     top:-155px;
 }
 
 #turn {
-    left: 162px;
+    left: 315px;
     top:-228px;
 }
 
 #river {
-    left: 214px;
+    left: 369px;
     top:-301px;
 }
 
 #action-options {
     height: 100px;
-    left: 100px;
+    left: 447px;
     position: absolute;
-    top: 450px;
-    width: 500px;
+    top: 644px;
+    width: 501px;
+    z-index:1;
 }
 
 .action-button {
@@ -285,11 +291,11 @@ select {
     color: black;
     font-size: 12px;
     height: 300px;
-    left: 800px;
+    left: 155%;
     position: absolute;
     text-align: center;
-    top: 5px;
-    width: 300px;
+    bottom: -88%;
+    width: 526px;
 }
 
 .response-normal {
@@ -314,11 +320,12 @@ select {
     border-radius: 4px;
     font-size: 12px;
     height: 50px;
-    left: 50px;
+    left: 390px;
     position: absolute;
     text-align: center;
-    top: 500px;
+    top: 703px;
     width: 300px;
+    z-index:1;
 }
 #quick-raises a:link {
     color: white;
