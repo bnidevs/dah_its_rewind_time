@@ -8,7 +8,8 @@ Team Members: [Robin Han](https://github.com/robinhanstuy), [Simon Tsui](https:/
 [Devlog](https://github.com/bnidevs/dah_its_rewind_time/blob/master/doc/devlog.txt)
 <br>
 [Design](https://github.com/bnidevs/dah_its_rewind_time/blob/master/doc/design.pdf)
-
+<br>
+[Our Video Demo Here](https://www.youtube.com/watch?v=so6zK09D_ZA)
 
 [Game Instructions](https://www.cardplayer.com/rules-of-poker/how-to-play-poker/games/texas-holdem)
 
