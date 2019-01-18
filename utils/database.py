@@ -1,3 +1,6 @@
+# dah_its_rewind_time - Robin Han, Bill Ni, Simon Tsui, Vincent Chi
+# SoftDev1 pd8
+# P02: NewYorkHoldEm
 import sqlite3
 
 dbfile = "data/userdata.db"

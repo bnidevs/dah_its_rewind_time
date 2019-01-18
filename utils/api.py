@@ -1,6 +1,6 @@
-# armRESTs - Robin Han, Aleksandra Koroza, Johnny Wong
+# dah_its_rewind_time - Robin Han, Bill Ni, Simon Tsui, Vincent Chi
 # SoftDev1 pd8
-# P01: ArRESTed Development
+# P02: NewYorkHoldEm
 
 # Used for API access and methods
 import json
