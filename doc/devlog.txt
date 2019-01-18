@@ -123,7 +123,7 @@ Made final minor bug fixes and finalized design of the webpages. Changed colors 
 
 ==============================================================
 
-vincentC -- 19:00
+vincentC -- 19:00 011719
 --------------------------------------------------------------
 Cleaned up code:
 Deleted unnecessary code.
