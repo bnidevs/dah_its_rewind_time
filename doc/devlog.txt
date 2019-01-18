@@ -122,6 +122,15 @@ robinH -- 00:33 011719
 Made final minor bug fixes and finalized design of the webpages. Changed colors to fit the overall look of our webpage. Should be finalized.
 
 ==============================================================
+
+vincentC -- 19:00
+--------------------------------------------------------------
+Cleaned up code:
+Deleted unnecessary code.
+Added personalizing and explanatory comments.
+
+==============================================================
+
 fristL -- TIMESTAMP
 --------------------------------------------------------------
 <Thing fristL did.>
