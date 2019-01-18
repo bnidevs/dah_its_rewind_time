@@ -107,7 +107,6 @@ def getpastmatches(user):
 
     for i in range(len(match_history)):
         currmatch = deformatmatch(match_history[i])
-        print(currmatch)
         match_history[i] = {"time": currmatch[2], "chips": int(currmatch[0]), "rank": int(currmatch[1])}
 
     db.close()
