@@ -69,7 +69,6 @@ def newgame2():
     if request.method == 'POST':
         winnings = int(request.form['mydata'])
         database.changechips(user,database.fetchchips(user) + winnings - 500)
-        print(database.fetchchips(user) + winnings)
         return ""
 
 @app.route('/getrank', methods=['GET', 'POST'])
@@ -77,7 +76,6 @@ def getrank():
     '''
     Passes rank for database/match history purposes.
     '''
-    print("i am here")
     if request.method == 'POST':
         place = (request.form['mydata'])
         now = datetime.datetime.now()
@@ -102,7 +100,6 @@ def authenticate():
         return redirect(url_for('home'))
     # instantiates DB_Manager with path to DB_FILE
     username, password, curr_page = request.form['username'], request.form['password'], request.form['address']
-    print(curr_page)
     # LOGGING IN
     if request.form["submit"] == "Login":
         if username != "" and password != "" and database.loginuser(username, password):

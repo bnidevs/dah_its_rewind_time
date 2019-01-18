@@ -21,7 +21,7 @@
 	    	</tr>
 	    	<tr>
 	    		<th scope="row">
-	    			Chips:
+	    			Chips Remaining:
 	    		</th>
 	    		<td style="text-align: left;">
 	    			{{ numchips }}
@@ -36,10 +36,9 @@
 	    </form>
 
 	    <br>
-
-	    <form class="form-inline my-2 my-lg-0" action="/clearcurrmatch">
-	    	<input class="btn btn-outline-warning ml-4" type="submit" name="submit" value="Clear Current Match">
-	    </form>
+	    <br><br>
+	    <p style="font-size:160%;"><b>Note: If a rank of -1 is displayed, it means you restarted the game</b></p>
+	    
 	  </div>
 
 	  <div class="col-md-8">
@@ -70,6 +69,7 @@
 		    	</tr>
 		    {% endfor %}
 	    </table>
+	    <br><br>
 	  </div>
 	</div>
 </div>

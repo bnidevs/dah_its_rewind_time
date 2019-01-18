@@ -12,20 +12,10 @@ var HUMAN_WINS_AGAIN;
 var HUMAN_GOES_ALL_IN;
 var cards = new Array(52);
 var players;
-var board, deck_index, button_index, current_bettor_index, current_bet, current_min_raise;
+var board;
+var deck_index, button_index, current_bettor_index, current_bet, current_min_raise;
 var deckid = '';
-
-function leave_pseudo_alert () {
-  write_modal_box("");
-}
-
-function my_pseudo_alert (text) {
-  var html = "<html><br><br><br><body topmargin=2 bottommargin=0 bgcolor=" +
-             BG_HILITE + " onload='document.f.y.focus();'>" +
-             "<font size=+2>" + text +
-             "</font><form name=f><input name=y type=button value='  OK  ' onclick='parent.leave_pseudo_alert()'></form></body></html>";
-  write_modal_box(html);
-}
+var user_name;
 
 function player (name, bankroll, carda, cardb, status, total_bet, subtotal_bet) {
   this.name = name;
@@ -37,8 +27,9 @@ function player (name, bankroll, carda, cardb, status, total_bet, subtotal_bet) 
   this.subtotal_bet = subtotal_bet;
 }
 
-function init (bankroll) {
+function init (bankroll,username) {
   STARTING_BANKROLL = parseInt(bankroll,10);
+  user_name = username;
   hide_poker_table();
   hide_log_window();
   hide_fold_call_raise_click();
@@ -48,52 +39,7 @@ function init (bankroll) {
   make_deck();
   new_game();
 }
-/*
-function write(text){
-  var file = IO.getFile("../static/log.txt", "history.txt");
-  var stream = IO.newOutputStream(file, "text");
-  stream.writeString(text);
-  stream.close();
-}
-*/
-/*
-function write(text){
-  const fs = require('fs');
-  fs.writeFile("history.txt",text(err) => {
-    // throws an error, you could also catch it here
-    if (err) throw err;
 
-    // success case, the file was saved
-    console.log('Lyric saved!');
-});
-}
-*/
-
-function make_deck(){
-  //console.log("imhere");
-  var request = new XMLHttpRequest();
-  request.open('GET',"https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1",true);
-  request.onload = function(){
-    var data = JSON.parse(this.response);
-    deckid = data["deck_id"];
-    generate_cards(deckid);
-    //write("Testing");
-    //console.log(deckid);
-  }
-  request.send();
-}
-
-function generate_cards(deck){
-  var request = new XMLHttpRequest();
-  request.open('GET',"https://deckofcardsapi.com/api/deck/" + deck + "/draw/?count=52",true);
-  request.onload = function(){
-    var data = JSON.parse(this.response);
-    for(var i = 0; i < 52; i++){
-      cards[i] = data['cards'][i];
-    }
-  }
-  request.send();
-}
 
 
 function handle_how_many_reply (opponents) {
@@ -150,10 +96,8 @@ function new_game_continues (req_no_opponents) {
                    ];
 
   players = new Array(req_no_opponents + 1);
-  var player_name = getLocalStorage("playername");
-  if (!player_name) {
-    player_name = "You";
-  }
+  var player_name = user_name;
+
   players[0] = new player(player_name, 0, "", "", "", 0, 0);
   var i;
   for (i = 1; i < players.length; i++) {
@@ -181,12 +125,6 @@ function new_round () {
     }
   }
   if (num_playing < 2) {
-  //var message = "<tr><td><font size=+2><b>Dealing flop</b></font>";
-  //write_game_response(message);
- // var the_buttons = "<input" + hilite_a + " type=button value='Continue Game' onclick='parent.new_round()'><input" + hilite_b + " type=button value='Restart Game' onclick='parent.confirm_new()'>";
-    //var html = "<html><br><br><br><body topmargin=2 bottommargin=0 bgcolor=" +
-    //           BG_HILITE + " onload='document.f.y.focus();'>" +
-    //           "<font size=+2>Play again?</font><form name=f><input name=y type=button value='  Yes  ' onclick='parent.new_game()'><input type=button value='  No  ' onclick='parent.confirm_quit()'></form></body></html>";
     var html = "<font size=+2><b>Play again?</b></font> <input type=button value='  Yes  ' onclick='parent.play_again()'><input type=button value='  No  ' onclick='parent.confirm_quit()'>";
     console.log(players[0].bankroll);
     returnChips(players[0].bankroll);
@@ -397,9 +335,7 @@ function main () {
       var html10 = quick_bets + "</td></tr></table></td></tr></table><br><br><br><br></body></html>";
       write_guick_raise(html9 + html10);
 
-      var message = "<tr><td><font size=+2><b>Current raise: " + current_bet +
-                    "</b><br> You need <font color=FF0000 size=+3>" + to_call +
-                    "</font> more to call.</font></td></tr>";
+      var message = "<tr><td><font size=+2><b>Current raise: " + current_bet + "</b><br> You need <font color=FF0000 size=+3>" + to_call + "</font> more to call.</font></td></tr>";
       write_game_response(message);
       write_player(0, 1, 0);
       return;
@@ -546,7 +482,7 @@ function handle_end_of_round () {
   var detail = "";
   for (i = 0; i < players.length; i++) {
     if (players[i].total_bet == 0 && players[i].status == "BUST") {
-      continue;  // Skip busted players
+      continue;  
     }
     detail += players[i].name + " bet " + players[i].total_bet + " & got " + allocations[i] + ".\\n";
   }
@@ -558,26 +494,21 @@ function handle_end_of_round () {
     hilite_a = "";
     hilite_b = " name=c";
   }
-  // continue game
+
   var the_buttons = "<input" + hilite_a + " type=button value='Continue Game' onclick='parent.new_round()'><input" + hilite_b + " type=button value='Restart Game' onclick='parent.confirm_new()'>";
   if (players[0].status == "BUST" && !human_loses) {
     the_buttons = "<input name=c type=button value='Restart Game' onclick='parent.STOP_AUTOPLAY=1'>";
     setTimeout(autoplay_new_round, 1500 + 1100 * global_speed);
   }
 
-  var html = "<html><body topmargin=2 bottommargin=0 bgcolor=" + BG_HILITE +
-    " onload='document.f.c.focus();'><table><tr><td>" + get_pot_size_html() +
-    "</td></tr></table><br><font size=+2 color=FF0000><b>Winning: " +
-    winner_text + "</b></font>" + detail + "<br>" +
-    "<form name=f>" + the_buttons + "</form></body></html>";
+  var html = "<html><body topmargin=2 bottommargin=0 bgcolor=" + BG_HILITE + " onload='document.f.c.focus();'><table><tr><td>" + get_pot_size_html() + "</td></tr></table><br><font size=+2 color=FF0000><b>Winning: " +
+    winner_text + "</b></font>" + detail + "<br>" + "<form name=f>" + the_buttons + "</form></body></html>";
   write_game_response(html);
 
   hide_fold_call_raise_click();
 
 
   if (human_loses == 1) {
-    //my_pseudo_alert("Sorry, you busted " + players[0].name + ".\n\n");
-    //"<tr><td><font size=+2><b>Dealing river</b></font>"
     var html = "<html><body><tr><td><font size=+2><b>Whoops, you busted ;( </b></font><br><input type=button value='Continue Game' onclick='parent.new_round()'><input type=button value='Restart Game' onclick='parent.confirm_new()'></body></html>";
     write_game_response(html);
   } else {
@@ -602,29 +533,7 @@ function handle_end_of_round () {
     }
   }
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function returnChips(input){
-        var f = $.ajax({
-            type: "POST",
-            url: "/playagain",
-            async: false,
-            data: { mydata: input }
-        });
 
-        return f.responseText;
-    }
-function returnRank(input){
-        console.log("i lost");
-        var f = $.ajax({
-            type: "POST",
-            url: "/getrank",
-            async: false,
-            data: { mydata: input }
-        });
-
-        return f.responseText;
-      }
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function autoplay_new_round () {
   if (STOP_AUTOPLAY > 0) {
     STOP_AUTOPLAY = 0;
@@ -905,7 +814,7 @@ function get_pot_size () {
 }
 
 function get_pot_size_html () {
-  return "<tr><td><font size=+4><b>TOTAL POT: " + get_pot_size() + "</b></font>";
+  return "<tr><td><center><font size=+4><b>TOTAL POT: " + get_pot_size() + "</b></font></center>";
 }
 
 function clear_bets () {
@@ -969,16 +878,6 @@ function get_next_player_position (i, delta) {
   return i;
 }
 
-function getLocalStorage (key) {
-  if (!localStorage) {
-    if (typeof getLocalStorage.count == 'undefined') {
-      getLocalStorage.count = 0;
-      my_pseudo_alert("Your browser do not support localStorage");
-    }
-    return null;
-  }
-  return localStorage.getItem(key);
-}
 
 function setLocalStorage (key, value) {
   if (!localStorage) {
@@ -1019,3 +918,40 @@ function confirm_quit () {
 function compRan () {
   return 0.5 - Math.random();
 }
+
+function leave_pseudo_alert () {
+  write_modal_box("");
+}
+
+function my_pseudo_alert (text) {
+  var html = "<html><br><br><br><body topmargin=2 bottommargin=0 bgcolor=" +
+             BG_HILITE + " onload='document.f.y.focus();'>" +
+             "<font size=+2>" + text +
+             "</font><form name=f><input name=y type=button value='  OK  ' onclick='parent.leave_pseudo_alert()'></form></body></html>";
+  write_modal_box(html);
+}
+
+//AJAX USAGE
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function returnChips(input){
+        var f = $.ajax({
+            type: "POST",
+            url: "/playagain",
+            async: false,
+            data: { mydata: input }
+        });
+
+        return f.responseText;
+    }
+function returnRank(input){
+        console.log("i lost");
+        var f = $.ajax({
+            type: "POST",
+            url: "/getrank",
+            async: false,
+            data: { mydata: input }
+        });
+
+        return f.responseText;
+      }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
